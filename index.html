@@ -33,6 +33,7 @@
       --purple-soft: #f3f0ff;
 
       --code-bg: #0d1117;
+      --code-toolbar: #161b22;
       --code-text: #e6edf3;
 
       --radius: 14px;
@@ -52,7 +53,6 @@
 
     body {
       margin: 0;
-      padding: 0;
       background: var(--bg);
       color: var(--text);
 
@@ -91,6 +91,12 @@
       position: relative;
       overflow: hidden;
 
+      padding: 34px;
+
+      color: white;
+
+      border-radius: 20px;
+
       background:
         linear-gradient(
           135deg,
@@ -98,11 +104,6 @@
           #1558bc 55%,
           #403294 100%
         );
-
-      color: white;
-
-      border-radius: 20px;
-      padding: 34px;
 
       box-shadow: var(--shadow);
 
@@ -126,6 +127,9 @@
     }
 
     .hero-badge {
+      position: relative;
+      z-index: 2;
+
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -139,14 +143,12 @@
       font-size: 13px;
       font-weight: 700;
 
-      letter-spacing: .02em;
-
       margin-bottom: 12px;
     }
 
     .hero h1 {
       position: relative;
-      z-index: 1;
+      z-index: 2;
 
       margin: 0 0 10px;
 
@@ -158,18 +160,19 @@
 
     .hero p {
       position: relative;
-      z-index: 1;
+      z-index: 2;
+
+      max-width: 850px;
 
       margin: 0;
 
-      max-width: 830px;
-
-      color: rgba(255,255,255,.9);
-
-      font-size: 16px;
+      color: rgba(255,255,255,.92);
     }
 
     .quick-flow {
+      position: relative;
+      z-index: 2;
+
       display: grid;
 
       grid-template-columns:
@@ -178,9 +181,6 @@
       gap: 10px;
 
       margin-top: 24px;
-
-      position: relative;
-      z-index: 1;
     }
 
     .quick-step {
@@ -188,12 +188,10 @@
 
       border-radius: 10px;
 
-      background:
-        rgba(255,255,255,.12);
+      background: rgba(255,255,255,.12);
 
       border:
-        1px solid
-        rgba(255,255,255,.14);
+        1px solid rgba(255,255,255,.14);
 
       font-size: 13px;
       font-weight: 650;
@@ -209,18 +207,72 @@
       margin-bottom: 3px;
     }
 
-    .notice {
+    .card {
+      margin-bottom: 20px;
+
+      padding: 24px;
+
+      background: var(--surface);
+
+      border:
+        1px solid var(--border);
+
       border-radius: var(--radius);
+
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+
+      font-size: 22px;
+    }
+
+    .card h3 {
+      margin: 24px 0 8px;
+
+      font-size: 17px;
+    }
+
+    .card-subtitle {
+      margin: 0 0 20px;
+
+      color: var(--muted);
+    }
+
+    .section-number {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      width: 30px;
+      height: 30px;
+
+      margin-right: 8px;
+
+      border-radius: 9px;
+
+      background: var(--blue-soft);
+      color: var(--blue);
+
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .notice {
+      margin: 16px 0;
 
       padding: 16px 18px;
 
-      margin: 16px 0;
-
       border: 1px solid;
+
+      border-radius: var(--radius);
     }
 
     .notice strong {
       display: block;
+
       margin-bottom: 4px;
     }
 
@@ -242,63 +294,6 @@
     .notice-success {
       background: var(--green-soft);
       border-color: #7ee2b8;
-    }
-
-    .card {
-      background: var(--surface);
-
-      border:
-        1px solid var(--border);
-
-      border-radius: var(--radius);
-
-      padding: 24px;
-
-      box-shadow: var(--shadow);
-
-      margin-bottom: 20px;
-    }
-
-    .card h2 {
-      margin: 0 0 8px;
-
-      font-size: 22px;
-
-      letter-spacing: -.02em;
-    }
-
-    .card h3 {
-      margin: 24px 0 8px;
-
-      font-size: 17px;
-    }
-
-    .card-subtitle {
-      color: var(--muted);
-
-      margin: 0 0 20px;
-    }
-
-    .section-number {
-      display: inline-flex;
-
-      align-items: center;
-      justify-content: center;
-
-      width: 30px;
-      height: 30px;
-
-      margin-right: 8px;
-
-      border-radius: 9px;
-
-      background: var(--blue-soft);
-      color: var(--blue);
-
-      font-size: 14px;
-      font-weight: 800;
-
-      vertical-align: middle;
     }
 
     .setup-step {
@@ -338,8 +333,6 @@
 
     .setup-step h3 {
       margin: 0 0 5px;
-
-      font-size: 16px;
     }
 
     .setup-step p {
@@ -348,8 +341,14 @@
       color: var(--muted);
     }
 
-    .setup-step code,
+    code,
     .inline-code {
+      padding: 2px 6px;
+
+      border-radius: 5px;
+
+      background: #f1f2f4;
+
       font-family:
         ui-monospace,
         SFMono-Regular,
@@ -357,13 +356,6 @@
         Monaco,
         Consolas,
         monospace;
-
-      padding: 2px 6px;
-
-      border-radius: 5px;
-
-      background: #f1f2f4;
-      color: #172b4d;
 
       font-size: .92em;
     }
@@ -398,8 +390,7 @@
       font-size: 12px;
     }
 
-    .field input[type="email"],
-    .field input[type="text"] {
+    .field input {
       width: 100%;
 
       min-height: 44px;
@@ -415,16 +406,13 @@
       border-radius: 8px;
 
       outline: none;
-
-      transition: .15s ease;
     }
 
     .field input:focus {
       border-color: var(--blue);
 
       box-shadow:
-        0 0 0 3px
-        rgba(12,102,228,.13);
+        0 0 0 3px rgba(12,102,228,.13);
     }
 
     .options {
@@ -458,10 +446,10 @@
     }
 
     .option input {
-      margin-top: 3px;
-
       width: 17px;
       height: 17px;
+
+      margin-top: 3px;
     }
 
     .option strong {
@@ -473,31 +461,31 @@
     .option small {
       display: block;
 
-      color: var(--muted);
-
       margin-top: 2px;
+
+      color: var(--muted);
     }
 
     .archive-preview {
+      margin: 12px 0 18px;
+
       padding: 13px 14px;
 
-      border-radius: 9px;
+      overflow-wrap: anywhere;
 
       background: var(--purple-soft);
 
       border: 1px solid #b8acf6;
 
-      margin: 12px 0 18px;
-
-      overflow-wrap: anywhere;
+      border-radius: 9px;
     }
 
     .archive-preview small {
       display: block;
 
-      color: var(--muted);
-
       margin-bottom: 3px;
+
+      color: var(--muted);
     }
 
     .archive-preview strong {
@@ -528,21 +516,16 @@
       align-items: center;
       justify-content: center;
 
-      gap: 7px;
-
       min-height: 40px;
 
       padding: 9px 15px;
 
       border: 0;
-
       border-radius: 8px;
 
       cursor: pointer;
 
       font-weight: 750;
-
-      transition: .15s ease;
     }
 
     .btn-primary {
@@ -559,20 +542,15 @@
       background: #f1f2f4;
     }
 
-    .btn-secondary:hover {
-      background: #dcdfe4;
-    }
-
     .code-card {
-      position: relative;
-
       margin-top: 20px;
 
       overflow: hidden;
 
-      border-radius: 12px;
+      border:
+        1px solid #30363d;
 
-      border: 1px solid #30363d;
+      border-radius: 12px;
 
       background: var(--code-bg);
     }
@@ -580,15 +558,13 @@
     .code-toolbar {
       display: flex;
 
-      justify-content: space-between;
       align-items: center;
-
-      gap: 10px;
+      justify-content: space-between;
 
       padding: 9px 12px;
 
       color: #b1bac4;
-      background: #161b22;
+      background: var(--code-toolbar);
 
       border-bottom:
         1px solid #30363d;
@@ -601,15 +577,15 @@
     }
 
     .copy-btn {
-      border:
-        1px solid #454c56;
-
-      border-radius: 7px;
-
       padding: 6px 10px;
 
       color: #e6edf3;
       background: #21262d;
+
+      border:
+        1px solid #454c56;
+
+      border-radius: 7px;
 
       cursor: pointer;
 
@@ -617,18 +593,14 @@
       font-weight: 700;
     }
 
-    .copy-btn:hover {
-      background: #30363d;
-    }
-
     pre {
       margin: 0;
 
       padding: 17px;
 
-      overflow: auto;
+      max-height: 600px;
 
-      max-height: 560px;
+      overflow: auto;
 
       color: var(--code-text);
       background: var(--code-bg);
@@ -646,8 +618,6 @@
       line-height: 1.52;
 
       white-space: pre;
-
-      tab-size: 2;
     }
 
     .status {
@@ -659,8 +629,8 @@
 
       border-radius: 9px;
 
-      font-weight: 650;
       font-size: 13px;
+      font-weight: 650;
     }
 
     .status.show {
@@ -669,7 +639,6 @@
 
     .status-error {
       color: #ae2a19;
-
       background: var(--red-soft);
 
       border:
@@ -678,7 +647,6 @@
 
     .status-ok {
       color: #216e4e;
-
       background: var(--green-soft);
 
       border:
@@ -702,16 +670,20 @@
 
       padding: 10px 12px;
 
+      background: var(--surface-soft);
+
       border:
         1px solid var(--border);
 
       border-radius: 9px;
-
-      background: var(--surface-soft);
     }
 
     .check-row input {
-      margin-top: 3px;
+      margin-top: 4px;
+    }
+
+    .hidden {
+      display: none !important;
     }
 
     .footer {
@@ -722,10 +694,6 @@
       font-size: 12px;
 
       text-align: center;
-    }
-
-    .hidden {
-      display: none !important;
     }
 
     @media (max-width: 820px) {
@@ -739,20 +707,12 @@
         grid-template-columns:
           1fr 1fr;
       }
-
-      .hero {
-        padding: 25px;
-      }
     }
 
     @media (max-width: 520px) {
 
       .page {
-        width:
-          min(
-            100% - 18px,
-            1180px
-          );
+        width: calc(100% - 18px);
 
         margin-top: 10px;
       }
@@ -762,8 +722,7 @@
       }
 
       .quick-flow {
-        grid-template-columns:
-          1fr;
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -784,18 +743,16 @@
     </h1>
 
     <p>
-      Narzędzie przygotowuje gotowy skrypt Google Apps Script.
-      Operator podaje konto osoby odchodzącej oraz konto osoby,
-      która przejmuje dane. Skrypt wykonuje bezpieczny DRY RUN,
-      a dopiero po ręcznym przełączeniu może wykonać właściwy
-      offboarding.
+      Generator tworzy gotowy skrypt Google Apps Script.
+      Wystarczy podać konto osoby odchodzącej oraz konto osoby,
+      która ma przejąć dane i przyszłą pocztę.
     </p>
 
     <div class="quick-flow">
 
       <div class="quick-step">
         <span>01</span>
-        Walidacja kont
+        Walidacja
       </div>
 
       <div class="quick-step">
@@ -805,7 +762,7 @@
 
       <div class="quick-step">
         <span>03</span>
-        Google MDM
+        Usuń konto z MDM
       </div>
 
       <div class="quick-step">
@@ -826,26 +783,35 @@
   <div class="notice notice-warning">
 
     <strong>
-      ⚠️ Ważne — przeczytaj przed użyciem
+      ⚠️ Ważne
     </strong>
 
-    Skrypt nie usuwa konta odchodzącego użytkownika.
-    Zmienia jego adres na archiwalny i pozostawia konto zawieszone.
-    Dzięki temu historyczna zawartość Gmail nie jest kasowana.
-    Nowa poczta wysyłana na stary adres użytkownika trafia do
-    użytkownika przejmującego poprzez alias.
+    Skrypt nie usuwa użytkownika z Google Workspace.
+    Konto zostaje zawieszone i przemianowane na adres archiwalny,
+    dzięki czemu historyczny Gmail pozostaje zachowany.
 
   </div>
 
 
   <div class="notice notice-info">
 
-    <strong>ℹ️ Google MDM</strong>
+    <strong>
+      📱 Co robi opcja Google MDM?
+    </strong>
 
-    Domyślna akcja to <b>BLOCK</b>.
-    Skrypt nie wykonuje factory resetu telefonu.
+    Skrypt używa operacji
+    <code>admin_account_wipe</code>.
+
+    Powoduje ona usunięcie konta/profilu służbowego użytkownika
+    z zarządzanego urządzenia.
+
+    <b>Nie wykonuje factory resetu telefonu.</b>
+
+    Wpis urządzenia może pozostać w Google Admin jako historyczny,
+    np. ze statusem <code>ACCOUNT_WIPED</code>.
 
   </div>
+
 
 
   <!-- ===================================================== -->
@@ -860,23 +826,19 @@
     </h2>
 
     <p class="card-subtitle">
-      Ten etap administrator wykonuje tylko przy pierwszym
-      przygotowaniu projektu Apps Script.
-      Przy kolejnych offboardingach wystarczy wygenerować nowy
-      Code.gs z formularza poniżej.
+      Ten etap wykonujemy tylko podczas przygotowania projektu.
+      Później wystarczy podmieniać Code.gs wygenerowany poniżej.
     </p>
 
 
     <div class="setup-step">
 
-      <div class="step-circle">
-        1
-      </div>
+      <div class="step-circle">1</div>
 
       <div>
 
         <h3>
-          Utwórz projekt Google Apps Script
+          Utwórz projekt Apps Script
         </h3>
 
         <p>
@@ -892,7 +854,7 @@
         </p>
 
         <p>
-          Zalecana nazwa:
+          Nazwa:
           <code>Google Workspace Offboarding</code>
         </p>
 
@@ -903,25 +865,26 @@
 
     <div class="setup-step">
 
-      <div class="step-circle">
-        2
-      </div>
+      <div class="step-circle">2</div>
 
       <div>
 
         <h3>
-          Włącz widoczność pliku manifestu
+          Pokaż manifest
         </h3>
 
         <p>
-          Wejdź w:
+          Apps Script →
+          <b>Ustawienia projektu ⚙</b>
+        </p>
+
+        <p>
+          Zaznacz:
         </p>
 
         <p>
           <b>
-            Ustawienia projektu ⚙ →
-            Wyświetlaj plik manifestu
-            „appsscript.json” w edytorze
+            Wyświetlaj plik manifestu „appsscript.json” w edytorze
           </b>
         </p>
 
@@ -932,20 +895,18 @@
 
     <div class="setup-step">
 
-      <div class="step-circle">
-        3
-      </div>
+      <div class="step-circle">3</div>
 
       <div>
 
         <h3>
-          Wklej manifest
+          Podmień appsscript.json
         </h3>
 
         <p>
-          Otwórz
-          <code>appsscript.json</code>,
-          usuń jego zawartość i wklej poniższy manifest.
+          Usuń całą zawartość pliku
+          <code>appsscript.json</code>
+          i wklej poniższą.
         </p>
 
         <div class="code-card">
@@ -976,19 +937,16 @@
 
     <div class="setup-step">
 
-      <div class="step-circle">
-        4
-      </div>
+      <div class="step-circle">4</div>
 
       <div>
 
         <h3>
-          Sprawdź Admin SDK
+          Admin SDK
         </h3>
 
         <p>
-          Po zapisaniu manifestu w projekcie musi być dostępna
-          usługa:
+          Projekt korzysta z usługi:
         </p>
 
         <p>
@@ -996,9 +954,12 @@
         </p>
 
         <p>
-          Jeżeli projekt korzysta z własnego projektu Google Cloud,
-          w Google Cloud Console należy również włączyć
-          <b>Admin SDK API</b>.
+          Jeżeli używany jest własny projekt Google Cloud,
+          włącz dodatkowo:
+        </p>
+
+        <p>
+          <b>Admin SDK API</b>
         </p>
 
       </div>
@@ -1008,25 +969,22 @@
 
     <div class="setup-step">
 
-      <div class="step-circle">
-        5
-      </div>
+      <div class="step-circle">5</div>
 
       <div>
 
         <h3>
-          Uprawnienia administratora
+          Uprawnienia
         </h3>
 
         <p>
-          Skrypt należy uruchamiać z konta administratora
-          Google Workspace mającego odpowiednie uprawnienia
-          do użytkowników, urządzeń oraz transferu danych.
+          Skrypt uruchamiaj z konta administratora
+          Google Workspace posiadającego uprawnienia do:
         </p>
 
         <p>
-          Przy pierwszym uruchomieniu Google poprosi
-          o zatwierdzenie zakresów OAuth.
+          użytkowników, urządzeń mobilnych,
+          aliasów oraz transferu danych.
         </p>
 
       </div>
@@ -1036,14 +994,12 @@
 
     <div class="setup-step">
 
-      <div class="step-circle">
-        6
-      </div>
+      <div class="step-circle">6</div>
 
       <div>
 
         <h3>
-          Przygotuj Code.gs
+          Code.gs
         </h3>
 
         <p>
@@ -1056,8 +1012,7 @@
 
         <p>
           Następnie użyj generatora poniżej
-          i wklej wygenerowany kod jako całą zawartość
-          <code>Code.gs</code>.
+          i wklej cały wygenerowany kod.
         </p>
 
       </div>
@@ -1079,11 +1034,11 @@
 
     <h2>
       <span class="section-number">2</span>
-      Generator offboardingu
+      Generator
     </h2>
 
     <p class="card-subtitle">
-      Przy każdym nowym zgłoszeniu wystarczy podać dwa adresy e-mail.
+      Podaj użytkownika odchodzącego oraz osobę przejmującą.
     </p>
 
 
@@ -1125,7 +1080,7 @@
         >
 
         <div class="field-hint">
-          To konto otrzyma dane oraz alias pocztowy.
+          Otrzyma dane oraz stary adres jako alias.
         </div>
 
       </div>
@@ -1156,7 +1111,7 @@
     <div class="archive-preview">
 
       <small>
-        Adres konta po offboardingu
+        Konto po offboardingu
       </small>
 
       <strong id="archivePreview">
@@ -1184,12 +1139,12 @@
         <span>
 
           <strong>
-            Google MDM — BLOCK
+            Google MDM — usuń konto służbowe
           </strong>
 
           <small>
-            Zablokuj urządzenia użytkownika
-            w Google Endpoint Management.
+            Usuń konto/profil służbowy z urządzenia
+            przez admin_account_wipe.
           </small>
 
         </span>
@@ -1212,7 +1167,7 @@
           </strong>
 
           <small>
-            PRIVATE + SHARED do użytkownika przejmującego.
+            PRIVATE + SHARED do osoby przejmującej.
           </small>
 
         </span>
@@ -1258,8 +1213,7 @@
           </strong>
 
           <small>
-            Stary adres zostanie aliasem
-            użytkownika przejmującego.
+            Stary adres zostanie aliasem osoby przejmującej.
           </small>
 
         </span>
@@ -1302,14 +1256,14 @@
       <div class="notice notice-success">
 
         <strong>
-          ✓ Kod wygenerowany
+          ✓ Kod gotowy
         </strong>
 
-        Skopiuj cały kod poniżej do
+        Skopiuj cały wygenerowany kod do
         <b>Code.gs</b>.
 
-        Wygenerowany skrypt zawsze startuje
-        w trybie <b>DRY RUN</b>.
+        Pierwsze uruchomienie zawsze działa jako
+        <b>DRY RUN</b>.
 
       </div>
 
@@ -1349,24 +1303,22 @@
 
     <h2>
       <span class="section-number">3</span>
-      Uruchomienie offboardingu
+      Uruchomienie
     </h2>
 
 
     <div class="setup-step">
 
-      <div class="step-circle">
-        1
-      </div>
+      <div class="step-circle">1</div>
 
       <div>
 
         <h3>
-          Najpierw DRY RUN
+          DRY RUN
         </h3>
 
         <p>
-          Wygenerowany kod zawsze zawiera:
+          Wygenerowany skrypt ma domyślnie:
         </p>
 
         <p>
@@ -1374,8 +1326,7 @@
         </p>
 
         <p>
-          Nie zmieniaj tej wartości
-          przed pierwszym uruchomieniem.
+          Zostaw tę wartość przy pierwszym uruchomieniu.
         </p>
 
       </div>
@@ -1385,18 +1336,16 @@
 
     <div class="setup-step">
 
-      <div class="step-circle">
-        2
-      </div>
+      <div class="step-circle">2</div>
 
       <div>
 
         <h3>
-          Uruchom funkcję offboarding
+          Uruchom offboarding()
         </h3>
 
         <p>
-          W górnym menu Apps Script wybierz:
+          Wybierz z listy funkcji:
         </p>
 
         <p>
@@ -1414,51 +1363,34 @@
 
     <div class="setup-step">
 
-      <div class="step-circle">
-        3
-      </div>
+      <div class="step-circle">3</div>
 
       <div>
 
         <h3>
-          Sprawdź DRY RUN
+          Sprawdź log
         </h3>
 
         <div class="checklist">
 
           <label class="check-row">
-
             <input type="checkbox">
-
-            Konto źródłowe ma prawidłowe
-            imię i nazwisko.
-
+            Konto źródłowe jest właściwą osobą.
           </label>
 
           <label class="check-row">
-
             <input type="checkbox">
-
-            Konto docelowe jest właściwym
-            użytkownikiem przejmującym.
-
+            Konto docelowe jest właściwą osobą.
           </label>
 
           <label class="check-row">
-
             <input type="checkbox">
-
-            Lista urządzeń MDM dotyczy
-            właściwego użytkownika.
-
+            Znalezione urządzenia należą do właściwego użytkownika.
           </label>
 
           <label class="check-row">
-
             <input type="checkbox">
-
-            Adres archiwalny jest prawidłowy.
-
+            Adres konta archiwalnego jest poprawny.
           </label>
 
         </div>
@@ -1470,18 +1402,16 @@
 
     <div class="setup-step">
 
-      <div class="step-circle">
-        4
-      </div>
+      <div class="step-circle">4</div>
 
       <div>
 
         <h3>
-          Przełącz na LIVE
+          LIVE
         </h3>
 
         <p>
-          Dopiero po poprawnym DRY RUN zmień:
+          Dopiero po sprawdzeniu DRY RUN zmień:
         </p>
 
         <p>
@@ -1497,7 +1427,7 @@
         </p>
 
         <p>
-          Zapisz projekt i ponownie uruchom
+          Zapisz i ponownie uruchom
           <code>offboarding()</code>.
         </p>
 
@@ -1508,30 +1438,27 @@
 
     <div class="setup-step">
 
-      <div class="step-circle">
-        5
-      </div>
+      <div class="step-circle">5</div>
 
       <div>
 
         <h3>
-          Błąd podczas przypisywania aliasu?
+          Problem z aliasem?
         </h3>
 
         <p>
-          Jeżeli właściwy offboarding zakończy się
-          błędem dopiero podczas przypisywania
-          starego adresu:
+          Jeśli proces zatrzyma się dopiero
+          podczas przypisywania starego adresu:
         </p>
 
         <p>
           <b>
-            NIE uruchamiaj ponownie całego procesu.
+            NIE uruchamiaj całego offboardingu ponownie.
           </b>
         </p>
 
         <p>
-          Uruchom wyłącznie:
+          Uruchom:
         </p>
 
         <p>
@@ -1554,21 +1481,21 @@
 
     <h2>
       <span class="section-number">4</span>
-      Oczekiwany rezultat
+      Efekt
     </h2>
+
 
     <div class="notice notice-success">
 
       <strong>
-        Po prawidłowym zakończeniu:
+        Po zakończeniu
       </strong>
 
-      konto odchodzącego użytkownika jest zawieszone,
-      aktywne sesje są wylogowane,
-      urządzenia Google MDM są zablokowane,
-      Drive / Docs i Calendar są przekazywane,
-      a stary adres e-mail staje się aliasem
-      użytkownika przejmującego.
+      użytkownik jest zawieszony,
+      jego aktywne sesje są wylogowane,
+      konto/profil służbowy jest usuwany z urządzeń Google MDM,
+      dane Drive/Docs i Calendar są przekazywane,
+      a stary adres staje się aliasem osoby przejmującej.
 
     </div>
 
@@ -1579,15 +1506,12 @@
         Historyczny Gmail
       </strong>
 
-      Historyczne wiadomości Gmail
-      nie są kopiowane przez ten skrypt
-      do skrzynki użytkownika przejmującego.
+      Historia Gmail nie jest kopiowana do skrzynki
+      osoby przejmującej.
 
-      Pozostają na zawieszonym
-      koncie archiwalnym.
+      Pozostaje na zawieszonym koncie archiwalnym.
 
-      Alias obsługuje nową pocztę
-      kierowaną na stary adres.
+      Alias obsługuje nową pocztę.
 
     </div>
 
@@ -1595,10 +1519,7 @@
 
 
   <div class="footer">
-
-    Google Workspace Offboarding
-    · instrukcja wewnętrzna
-
+    Google Workspace Offboarding · instrukcja wewnętrzna
   </div>
 
 </div>
@@ -1608,7 +1529,7 @@
 <script>
 
   /* =========================================================
-     APPSSCRIPT.JSON
+     MANIFEST
      ========================================================= */
 
   const MANIFEST = `{
@@ -1635,14 +1556,14 @@
   ]
 }`;
 
-  document.getElementById(
-    "manifestCode"
-  ).textContent = MANIFEST;
+  document
+    .getElementById("manifestCode")
+    .textContent = MANIFEST;
 
 
 
   /* =========================================================
-     HELPERS
+     HTML HELPERS
      ========================================================= */
 
   function normalizeEmail(value) {
@@ -1680,20 +1601,14 @@
       d.getFullYear();
 
     const mm =
-      String(
-        d.getMonth() + 1
-      ).padStart(2, "0");
+      String(d.getMonth() + 1)
+        .padStart(2, "0");
 
     const dd =
-      String(
-        d.getDate()
-      ).padStart(2, "0");
+      String(d.getDate())
+        .padStart(2, "0");
 
-    return (
-      yyyy +
-      mm +
-      dd
-    );
+    return yyyy + mm + dd;
 
   }
 
@@ -1702,18 +1617,9 @@
 
     return String(value || "")
       .toLowerCase()
-      .replace(
-        /[^a-z0-9._-]/g,
-        ""
-      )
-      .replace(
-        /\.+/g,
-        "."
-      )
-      .replace(
-        /^\.|\.$/g,
-        ""
-      );
+      .replace(/[^a-z0-9._-]/g, "")
+      .replace(/\.+/g, ".")
+      .replace(/^\.|\.$/g, "");
 
   }
 
@@ -1723,9 +1629,7 @@
     const source =
       normalizeEmail(
         document
-          .getElementById(
-            "sourceEmail"
-          )
+          .getElementById("sourceEmail")
           .value
       );
 
@@ -1733,9 +1637,7 @@
     const prefix =
       sanitizeLocalPart(
         document
-          .getElementById(
-            "archivePrefix"
-          )
+          .getElementById("archivePrefix")
           .value
       ) || "zz.offboard";
 
@@ -1781,9 +1683,7 @@
 
 
     document
-      .getElementById(
-        "archivePreview"
-      )
+      .getElementById("archivePreview")
       .textContent =
         archive || "—";
 
@@ -1840,9 +1740,7 @@
   ) {
 
     const element =
-      document.getElementById(
-        id
-      );
+      document.getElementById(id);
 
 
     const text =
@@ -1895,7 +1793,7 @@
 
     if (button) {
 
-      const old =
+      const previous =
         button.textContent;
 
 
@@ -1907,10 +1805,10 @@
         function() {
 
           button.textContent =
-            old;
+            previous;
 
         },
-        1600
+        1500
       );
 
     }
@@ -1931,9 +1829,7 @@
     const source =
       normalizeEmail(
         document
-          .getElementById(
-            "sourceEmail"
-          )
+          .getElementById("sourceEmail")
           .value
       );
 
@@ -1941,9 +1837,7 @@
     const target =
       normalizeEmail(
         document
-          .getElementById(
-            "targetEmail"
-          )
+          .getElementById("targetEmail")
           .value
       );
 
@@ -1954,33 +1848,25 @@
 
     const mdm =
       document
-        .getElementById(
-          "optMdm"
-        )
+        .getElementById("optMdm")
         .checked;
 
 
     const drive =
       document
-        .getElementById(
-          "optDrive"
-        )
+        .getElementById("optDrive")
         .checked;
 
 
     const calendar =
       document
-        .getElementById(
-          "optCalendar"
-        )
+        .getElementById("optCalendar")
         .checked;
 
 
     const alias =
       document
-        .getElementById(
-          "optAlias"
-        )
+        .getElementById("optAlias")
         .checked;
 
 
@@ -2020,18 +1906,6 @@
     }
 
 
-    if (!archive) {
-
-      setStatus(
-        "Nie udało się wygenerować adresu archiwalnego.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
     const code =
       buildAppsScript({
         source,
@@ -2045,21 +1919,15 @@
 
 
     document
-      .getElementById(
-        "generatedCode"
-      )
+      .getElementById("generatedCode")
       .textContent =
         code;
 
 
     document
-      .getElementById(
-        "generatedBlock"
-      )
+      .getElementById("generatedBlock")
       .classList
-      .remove(
-        "hidden"
-      );
+      .remove("hidden");
 
 
     setStatus(
@@ -2069,9 +1937,7 @@
 
 
     document
-      .getElementById(
-        "generatedBlock"
-      )
+      .getElementById("generatedBlock")
       .scrollIntoView({
         behavior: "smooth",
         block: "start"
@@ -2084,71 +1950,49 @@
   function clearGenerator() {
 
     document
-      .getElementById(
-        "sourceEmail"
-      )
+      .getElementById("sourceEmail")
       .value = "";
 
 
     document
-      .getElementById(
-        "targetEmail"
-      )
+      .getElementById("targetEmail")
       .value = "";
 
 
     document
-      .getElementById(
-        "archivePrefix"
-      )
+      .getElementById("archivePrefix")
       .value =
         "zz.offboard";
 
 
     document
-      .getElementById(
-        "optMdm"
-      )
-      .checked = true;
+      .getElementById("optMdm")
+      .checked =
+        true;
 
 
     document
-      .getElementById(
-        "optDrive"
-      )
-      .checked = true;
+      .getElementById("optDrive")
+      .checked =
+        true;
 
 
     document
-      .getElementById(
-        "optCalendar"
-      )
-      .checked = true;
+      .getElementById("optCalendar")
+      .checked =
+        true;
 
 
     document
-      .getElementById(
-        "optAlias"
-      )
-      .checked = true;
+      .getElementById("optAlias")
+      .checked =
+        true;
 
 
     document
-      .getElementById(
-        "generatedBlock"
-      )
+      .getElementById("generatedBlock")
       .classList
-      .add(
-        "hidden"
-      );
-
-
-    document
-      .getElementById(
-        "generatedCode"
-      )
-      .textContent =
-        "";
+      .add("hidden");
 
 
     clearStatus();
@@ -2160,7 +2004,7 @@
 
 
   /* =========================================================
-     GOOGLE APPS SCRIPT TEMPLATE
+     GOOGLE APPS SCRIPT GENERATOR
      ========================================================= */
 
   function buildAppsScript(cfg) {
@@ -2194,10 +2038,13 @@
  * TARGET:
  * ${TARGET}
  *
+ * ARCHIVE:
+ * ${ARCHIVE}
+ *
  * Wygenerowano automatycznie.
  *
- * WAŻNE:
- * Pierwsze uruchomienie zawsze wykonuj z EXECUTE = false.
+ * PIERWSZE URUCHOMIENIE:
+ * EXECUTE = false
  * ============================================================
  */
 
@@ -2209,12 +2056,12 @@ const CFG = {
 
   ARCHIVE_EMAIL: '${ARCHIVE}',
 
-  // FALSE = tylko podgląd.
-  // TRUE  = rzeczywiste wykonanie.
+  // false = DRY RUN
+  // true  = LIVE
 
   EXECUTE: false,
 
-  BLOCK_GOOGLE_MDM: ${cfg.mdm},
+  MDM_ACCOUNT_WIPE: ${cfg.mdm},
 
   TRANSFER_DRIVE: ${cfg.drive},
 
@@ -2229,7 +2076,9 @@ const CFG = {
 
 
 /**
+ * ============================================================
  * GŁÓWNA FUNKCJA
+ * ============================================================
  */
 function offboarding() {
 
@@ -2264,7 +2113,7 @@ function offboarding() {
   if (!target) {
 
     throw new Error(
-      'Nie znaleziono użytkownika docelowego: ' +
+      'Nie znaleziono konta docelowego: ' +
       CFG.TARGET
     );
 
@@ -2280,7 +2129,7 @@ function offboarding() {
 
 
   // ----------------------------------------------------------
-  // OCHRONA PRZED PONOWNYM OFFBOARDINGIEM
+  // OFFBOARDING JUŻ ZAKOŃCZONY
   // ----------------------------------------------------------
 
   if (
@@ -2290,14 +2139,14 @@ function offboarding() {
 
     log('');
     log('======================================================');
-    log(' OFFBOARDING WYGLĄDA NA JUŻ ZAKOŃCZONY');
+    log(' OFFBOARDING JEST JUŻ ZAKOŃCZONY');
     log('======================================================');
 
     log('');
 
     log(
       CFG.SOURCE +
-      ' wskazuje już na konto docelowe:'
+      ' jest już aliasem użytkownika:'
     );
 
     log(
@@ -2305,6 +2154,7 @@ function offboarding() {
     );
 
     log('');
+
     log(
       'Nie wykonano żadnych zmian.'
     );
@@ -2314,6 +2164,10 @@ function offboarding() {
   }
 
 
+
+  // ----------------------------------------------------------
+  // SOURCE JEST ALIASEM INNEGO KONTA
+  // ----------------------------------------------------------
 
   if (
     source &&
@@ -2332,7 +2186,6 @@ function offboarding() {
     log('');
 
     log(
-      'Adres ' +
       CFG.SOURCE +
       ' wskazuje obecnie na:'
     );
@@ -2344,11 +2197,11 @@ function offboarding() {
     log('');
 
     log(
-      'Nie uruchamiam ponownie pełnego procesu.'
+      'Nie uruchamiam ponownie całego procesu.'
     );
 
     log(
-      'Jeżeli trzeba dokończyć alias, uruchom:'
+      'Jeśli trzeba dokończyć alias, uruchom:'
     );
 
     log(
@@ -2360,6 +2213,10 @@ function offboarding() {
   }
 
 
+
+  // ----------------------------------------------------------
+  // SOURCE NIE ISTNIEJE POD STARYM ADRESEM
+  // ----------------------------------------------------------
 
   if (!source) {
 
@@ -2379,18 +2236,21 @@ function offboarding() {
       log('');
 
       log(
-        'Znaleziono konto archiwalne: ' +
+        'Znaleziono konto archiwalne:'
+      );
+
+      log(
         archived.primaryEmail
       );
 
       log('');
 
       log(
-        'Nie wykonuję ponownie pełnego offboardingu.'
+        'Nie wykonuję pełnego offboardingu ponownie.'
       );
 
       log(
-        'W razie potrzeby uruchom:'
+        'W razie problemu z aliasem uruchom:'
       );
 
       log(
@@ -2403,7 +2263,7 @@ function offboarding() {
 
 
     throw new Error(
-      'Nie znaleziono użytkownika źródłowego: ' +
+      'Nie znaleziono konta źródłowego: ' +
       CFG.SOURCE
     );
 
@@ -2411,16 +2271,19 @@ function offboarding() {
 
 
 
+  // ----------------------------------------------------------
+  // SAFETY
+  // ----------------------------------------------------------
+
   if (
     source.id === target.id
   ) {
 
     throw new Error(
-      'SOURCE i TARGET wskazują na to samo konto.'
+      'SOURCE i TARGET są tym samym użytkownikiem.'
     );
 
   }
-
 
 
   if (
@@ -2428,8 +2291,19 @@ function offboarding() {
   ) {
 
     throw new Error(
-      'STOP: konto źródłowe posiada uprawnienia administratora. ' +
-      'Proces należy zweryfikować ręcznie.'
+      'STOP: konto źródłowe jest administratorem. ' +
+      'Offboarding wymaga ręcznej weryfikacji.'
+    );
+
+  }
+
+
+  if (
+    target.suspended
+  ) {
+
+    throw new Error(
+      'STOP: konto osoby przejmującej jest zawieszone.'
     );
 
   }
@@ -2456,7 +2330,7 @@ function offboarding() {
 
 
 
-  log('✓ SOURCE znaleziony:');
+  log('✓ SOURCE:');
 
   log(
     '  ' +
@@ -2476,7 +2350,7 @@ function offboarding() {
   log('');
 
 
-  log('✓ TARGET znaleziony:');
+  log('✓ TARGET:');
 
   log(
     '  ' +
@@ -2497,19 +2371,6 @@ function offboarding() {
 
 
 
-  if (
-    target.suspended
-  ) {
-
-    throw new Error(
-      'STOP: konto docelowe jest zawieszone: ' +
-      CFG.TARGET
-    );
-
-  }
-
-
-
   // ----------------------------------------------------------
   // GOOGLE MDM
   // ----------------------------------------------------------
@@ -2523,6 +2384,7 @@ function offboarding() {
   log(
     'Google MDM / Endpoint Management:'
   );
+
 
   log(
     'Znalezionych urządzeń: ' +
@@ -2587,20 +2449,24 @@ function offboarding() {
     log('');
 
     log(
-      '1. Suspend konta źródłowego'
+      '1. Zawieszenie konta'
     );
 
     log(
-      '2. Wylogowanie aktywnych sesji'
+      '2. Wylogowanie wszystkich sesji'
     );
 
 
     if (
-      CFG.BLOCK_GOOGLE_MDM
+      CFG.MDM_ACCOUNT_WIPE
     ) {
 
       log(
-        '3. Blokadę urządzeń Google MDM'
+        '3. Usunięcie konta/profilu służbowego z urządzeń MDM'
+      );
+
+      log(
+        '   action = admin_account_wipe'
       );
 
     }
@@ -2622,14 +2488,18 @@ function offboarding() {
     ) {
 
       log(
-        '5. Transfer danych Calendar'
+        '5. Transfer Calendar'
       );
 
     }
 
 
     log(
-      '6. Zmianę adresu użytkownika na: ' +
+      '6. Zmianę loginu na:'
+    );
+
+    log(
+      '   ' +
       CFG.ARCHIVE_EMAIL
     );
 
@@ -2639,9 +2509,11 @@ function offboarding() {
     ) {
 
       log(
-        '7. Przeniesienie adresu ' +
-        CFG.SOURCE +
-        ' jako alias do ' +
+        '7. Przypisanie starego adresu jako alias do:'
+      );
+
+      log(
+        '   ' +
         CFG.TARGET
       );
 
@@ -2651,27 +2523,17 @@ function offboarding() {
     log('');
 
     log(
-      'Jeżeli wszystko się zgadza:'
+      'Jeżeli wszystko jest poprawne:'
+    );
+
+    log(
+      'EXECUTE: false -> EXECUTE: true'
     );
 
     log('');
 
     log(
-      'EXECUTE: false'
-    );
-
-    log(
-      'zmień na'
-    );
-
-    log(
-      'EXECUTE: true'
-    );
-
-    log('');
-
-    log(
-      'i uruchom offboarding() ponownie.'
+      'Następnie ponownie uruchom offboarding().'
     );
 
     return;
@@ -2695,7 +2557,7 @@ function offboarding() {
     !source.suspended
   ) {
 
-    AdminDirectory.Users.update(
+    AdminDirectory.Users.patch(
       {
         suspended: true
       },
@@ -2751,17 +2613,17 @@ function offboarding() {
 
 
   // ----------------------------------------------------------
-  // GOOGLE MDM
+  // GOOGLE MDM ACCOUNT WIPE
   // ----------------------------------------------------------
 
   if (
-    CFG.BLOCK_GOOGLE_MDM
+    CFG.MDM_ACCOUNT_WIPE
   ) {
 
     log('');
 
     log(
-      '--- GOOGLE MDM ---'
+      '--- GOOGLE MDM / ACCOUNT WIPE ---'
     );
 
 
@@ -2770,7 +2632,7 @@ function offboarding() {
     ) {
 
       log(
-        '✓ Brak urządzeń do zablokowania.'
+        '✓ Brak urządzeń przypisanych do użytkownika.'
       );
 
     } else {
@@ -2778,11 +2640,35 @@ function offboarding() {
       devices.forEach(
         function(device) {
 
+          const status =
+            normalize(
+              device.status
+            );
+
+
+          if (
+            status === 'account_wiped'
+          ) {
+
+            log(
+              '✓ Konto zostało już wcześniej usunięte z urządzenia: ' +
+              (
+                device.model ||
+                device.resourceId
+              )
+            );
+
+            return;
+
+          }
+
+
           try {
 
             AdminDirectory.Mobiledevices.action(
               {
-                action: 'block'
+                action:
+                  'admin_account_wipe'
               },
               CFG.CUSTOMER_ID,
               device.resourceId
@@ -2790,7 +2676,7 @@ function offboarding() {
 
 
             log(
-              '✓ Zablokowano: ' +
+              '✓ Zlecono usunięcie konta/profilu służbowego z: ' +
               (
                 device.model ||
                 device.resourceId
@@ -2800,7 +2686,7 @@ function offboarding() {
           } catch (e) {
 
             log(
-              '⚠ Błąd blokowania urządzenia ' +
+              '⚠ Nie udało się wykonać account wipe na urządzeniu ' +
               device.resourceId +
               ': ' +
               String(e)
@@ -2870,7 +2756,7 @@ function offboarding() {
   } else {
 
     log(
-      'Transfer Drive/Calendar wyłączony w konfiguracji.'
+      'Transfer danych jest wyłączony.'
     );
 
   }
@@ -2888,7 +2774,7 @@ function offboarding() {
   );
 
 
-  AdminDirectory.Users.update(
+  AdminDirectory.Users.patch(
     {
       primaryEmail:
         CFG.ARCHIVE_EMAIL
@@ -2898,7 +2784,11 @@ function offboarding() {
 
 
   log(
-    '✓ Konto zostało przemianowane na: ' +
+    '✓ Konto zostało przemianowane na:'
+  );
+
+  log(
+    '  ' +
     CFG.ARCHIVE_EMAIL
   );
 
@@ -2920,7 +2810,7 @@ function offboarding() {
     log('');
 
     log(
-      '--- PRZEKIEROWANIE POCZTY ---'
+      '--- PRZEKIEROWANIE NOWEJ POCZTY ---'
     );
 
 
@@ -2941,7 +2831,7 @@ function offboarding() {
 
 
   // ----------------------------------------------------------
-  // FINAL VERIFY
+  // VERIFY
   // ----------------------------------------------------------
 
   log('');
@@ -2968,7 +2858,7 @@ function offboarding() {
   ) {
 
     throw new Error(
-      'Nie znaleziono konta archiwalnego podczas weryfikacji.'
+      'Nie znaleziono konta archiwalnego po operacji.'
     );
 
   }
@@ -3113,7 +3003,9 @@ function offboarding() {
 
 
 /**
+ * ============================================================
  * DOKOŃCZENIE TYLKO ALIASU
+ * ============================================================
  */
 function claimOldEmailOnly() {
 
@@ -3181,7 +3073,7 @@ function claimOldEmailOnly() {
   ) {
 
     log(
-      '✓ Alias jest już przypisany do użytkownika docelowego.'
+      '✓ Alias jest już przypisany do właściwego użytkownika.'
     );
 
     return;
@@ -3205,7 +3097,7 @@ function claimOldEmailOnly() {
   log('');
 
   log(
-    '✓ Alias został poprawnie przypisany.'
+    '✓ Alias został przypisany.'
   );
 
 }
@@ -3213,7 +3105,9 @@ function claimOldEmailOnly() {
 
 
 /**
- * DIAGNOSTYKA STAREGO ADRESU
+ * ============================================================
+ * DIAGNOSTYKA ADRESU
+ * ============================================================
  */
 function diagnoseOldAddress() {
 
@@ -3248,10 +3142,8 @@ function diagnoseOldAddress() {
     !owner
   ) {
 
-    log('');
-
     log(
-      'Adres jest obecnie wolny / nie został znaleziony.'
+      'Adres jest wolny / nie został znaleziony.'
     );
 
     return;
@@ -3259,53 +3151,31 @@ function diagnoseOldAddress() {
   }
 
 
-  log('');
-
   log(
     'Typ: ' +
     owner.type
   );
 
 
-  if (
-    owner.type === 'USER'
-  ) {
-
-    log(
-      'Primary email: ' +
-      owner.email
-    );
-
-    log(
-      'User ID: ' +
-      owner.id
-    );
-
-  }
+  log(
+    'Adres główny: ' +
+    owner.email
+  );
 
 
-  if (
-    owner.type === 'GROUP'
-  ) {
-
-    log(
-      'Group email: ' +
-      owner.email
-    );
-
-    log(
-      'Group ID: ' +
-      owner.id
-    );
-
-  }
+  log(
+    'ID: ' +
+    owner.id
+  );
 
 }
 
 
 
 /**
- * USER HELPERS
+ * ============================================================
+ * USERS
+ * ============================================================
  */
 function safeGetUser(
   userKey
@@ -3326,6 +3196,7 @@ function safeGetUser(
 }
 
 
+
 function normalize(
   value
 ) {
@@ -3341,7 +3212,9 @@ function normalize(
 
 
 /**
+ * ============================================================
  * GOOGLE MDM
+ * ============================================================
  */
 function getUserMobileDevices(
   email
@@ -3457,7 +3330,9 @@ function getUserMobileDevices(
 
 
 /**
+ * ============================================================
  * DATA TRANSFER
+ * ============================================================
  *
  * Drive / Docs:
  * 55656082996
@@ -3611,7 +3486,9 @@ function startDataTransfer(
 
 
 /**
- * ADDRESS / ALIAS HELPERS
+ * ============================================================
+ * ADDRESS OWNER
+ * ============================================================
  */
 function findAddressOwner(
   address
@@ -3646,7 +3523,7 @@ function findAddressOwner(
 
   } catch (e) {
 
-    // Nie znaleziono jako user.
+    // Nie jest userem.
 
   }
 
@@ -3680,7 +3557,7 @@ function findAddressOwner(
 
   } catch (e) {
 
-    // Nie znaleziono jako grupa.
+    // Nie jest grupą.
 
   }
 
@@ -3691,6 +3568,11 @@ function findAddressOwner(
 
 
 
+/**
+ * ============================================================
+ * REMOVE OLD ALIAS
+ * ============================================================
+ */
 function removeAliasFromUserIfPresent(
   userId,
   alias
@@ -3745,7 +3627,7 @@ function removeAliasFromUserIfPresent(
 
 
   log(
-    '✓ Usunięto stary alias z konta archiwalnego: ' +
+    '✓ Zwolniono stary adres: ' +
     alias
   );
 
@@ -3762,10 +3644,9 @@ function removeAliasFromUserIfPresent(
 
 
 /**
- * Próbuje przypisać alias.
- *
- * Obsługuje także błąd:
- * Entity already exists.
+ * ============================================================
+ * ADD ALIAS + RETRY
+ * ============================================================
  */
 function addAliasWithRetry(
   archivedUserId,
@@ -3789,7 +3670,6 @@ function addAliasWithRetry(
       );
 
 
-    // Alias już poprawnie wskazuje TARGET.
     if (
       owner &&
       owner.type === 'USER' &&
@@ -3797,7 +3677,7 @@ function addAliasWithRetry(
     ) {
 
       log(
-        '✓ Alias jest już przypisany do konta docelowego.'
+        '✓ Alias jest już przypisany do TARGET.'
       );
 
       return;
@@ -3805,7 +3685,6 @@ function addAliasWithRetry(
     }
 
 
-    // Alias nadal siedzi na koncie archiwalnym.
     if (
       owner &&
       owner.type === 'USER' &&
@@ -3817,7 +3696,7 @@ function addAliasWithRetry(
         attempt +
         '/' +
         maxAttempts +
-        ': Google nadal widzi adres przy koncie archiwalnym.'
+        ': adres nadal wskazuje konto archiwalne.'
       );
 
 
@@ -3831,7 +3710,7 @@ function addAliasWithRetry(
       } catch (e) {
 
         log(
-          'Oczekiwanie na propagację usunięcia aliasu...'
+          'Google nadal propaguje usunięcie aliasu.'
         );
 
       }
@@ -3847,7 +3726,6 @@ function addAliasWithRetry(
     }
 
 
-    // Adres należy do innego usera.
     if (
       owner &&
       owner.type === 'USER'
@@ -3863,7 +3741,6 @@ function addAliasWithRetry(
     }
 
 
-    // Adres należy do Google Group.
     if (
       owner &&
       owner.type === 'GROUP'
@@ -3893,7 +3770,7 @@ function addAliasWithRetry(
       log(
         '✓ Adres ' +
         alias +
-        ' został przypisany do konta docelowego.'
+        ' został przypisany jako alias.'
       );
 
 
@@ -3923,9 +3800,9 @@ function addAliasWithRetry(
           'Nie udało się przypisać aliasu po ' +
           maxAttempts +
           ' próbach.\\n\\n' +
-          'Pozostałe operacje offboardingu mogły zostać już wykonane.\\n' +
+          'Pozostałe etapy mogły zostać już wykonane.\\n' +
           'NIE uruchamiaj całego offboardingu ponownie.\\n\\n' +
-          'Uruchom później tylko funkcję:\\n' +
+          'Uruchom później wyłącznie:\\n' +
           'claimOldEmailOnly()\\n\\n' +
           String(e)
         );
@@ -3946,7 +3823,9 @@ function addAliasWithRetry(
 
 
 /**
+ * ============================================================
  * LOG
+ * ============================================================
  */
 function log(
   message
@@ -3962,10 +3841,6 @@ function log(
   }
 
 
-
-  /* =========================================================
-     START
-     ========================================================= */
 
   updatePreview();
 
