@@ -1,0 +1,3162 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Google Workspace Offboarding Generator</title>
+
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --surface: #ffffff;
+      --surface-soft: #f8fafc;
+      --border: #dfe3e8;
+      --border-strong: #c7ccd1;
+
+      --text: #172b4d;
+      --muted: #626f86;
+
+      --blue: #0c66e4;
+      --blue-hover: #0055cc;
+      --blue-soft: #e9f2ff;
+
+      --green: #1f845a;
+      --green-soft: #dcfff1;
+
+      --yellow: #a54800;
+      --yellow-soft: #fff7d6;
+
+      --red: #c9372c;
+      --red-soft: #ffeceb;
+
+      --purple: #6e5dc6;
+      --purple-soft: #f3f0ff;
+
+      --code-bg: #0d1117;
+      --code-text: #e6edf3;
+
+      --radius: 14px;
+      --shadow:
+        0 1px 2px rgba(9, 30, 66, 0.08),
+        0 4px 12px rgba(9, 30, 66, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+      line-height: 1.55;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 28px auto 60px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(
+          135deg,
+          #0c66e4 0%,
+          #1558bc 55%,
+          #403294 100%
+        );
+      color: white;
+      border-radius: 20px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      right: -140px;
+      top: -170px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.14);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 10px;
+      font-size: clamp(27px, 4vw, 42px);
+      line-height: 1.12;
+      letter-spacing: -.03em;
+    }
+
+    .hero p {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      max-width: 830px;
+      color: rgba(255,255,255,.9);
+      font-size: 16px;
+    }
+
+    .quick-flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .quick-step {
+      padding: 12px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.14);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .quick-step span {
+      display: block;
+      opacity: .72;
+      font-size: 11px;
+      margin-bottom: 3px;
+    }
+
+    .notice {
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      margin: 16px 0;
+      border: 1px solid;
+    }
+
+    .notice strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .notice-info {
+      background: var(--blue-soft);
+      border-color: #85b8ff;
+    }
+
+    .notice-warning {
+      background: var(--yellow-soft);
+      border-color: #f5cd47;
+    }
+
+    .notice-danger {
+      background: var(--red-soft);
+      border-color: #fd9891;
+    }
+
+    .notice-success {
+      background: var(--green-soft);
+      border-color: #7ee2b8;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      letter-spacing: -.02em;
+    }
+
+    .card h3 {
+      margin: 24px 0 8px;
+      font-size: 17px;
+    }
+
+    .card-subtitle {
+      color: var(--muted);
+      margin: 0 0 20px;
+    }
+
+    .section-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      margin-right: 8px;
+      border-radius: 9px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 800;
+      vertical-align: middle;
+    }
+
+    .setup-step {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 14px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .setup-step:last-child {
+      border-bottom: 0;
+    }
+
+    .step-circle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: white;
+      font-weight: 800;
+    }
+
+    .setup-step h3 {
+      margin: 0 0 5px;
+      font-size: 16px;
+    }
+
+    .setup-step p {
+      margin: 4px 0;
+      color: var(--muted);
+    }
+
+    .setup-step code,
+    .inline-code {
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: #f1f2f4;
+      color: #172b4d;
+      font-size: .92em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      margin-bottom: 17px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .field-hint {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .field input[type="email"],
+    .field input[type="text"] {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      color: var(--text);
+      background: white;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      outline: none;
+      transition: .15s ease;
+    }
+
+    .field input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(12,102,228,.13);
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 13px;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .option input {
+      margin-top: 3px;
+      width: 17px;
+      height: 17px;
+    }
+
+    .option strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .option small {
+      display: block;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .archive-preview {
+      padding: 13px 14px;
+      border-radius: 9px;
+      background: var(--purple-soft);
+      border: 1px solid #b8acf6;
+      margin: 12px 0 18px;
+      overflow-wrap: anywhere;
+    }
+
+    .archive-preview small {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .archive-preview strong {
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+      font-size: 13px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 40px;
+      padding: 9px 15px;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 750;
+      transition: .15s ease;
+    }
+
+    .btn-primary {
+      color: white;
+      background: var(--blue);
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-hover);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: #f1f2f4;
+    }
+
+    .btn-secondary:hover {
+      background: #dcdfe4;
+    }
+
+    .btn-success {
+      color: white;
+      background: var(--green);
+    }
+
+    .btn-success:hover {
+      filter: brightness(.93);
+    }
+
+    .code-card {
+      position: relative;
+      margin-top: 20px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid #30363d;
+      background: var(--code-bg);
+    }
+
+    .code-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      color: #b1bac4;
+      background: #161b22;
+      border-bottom: 1px solid #30363d;
+      font-size: 12px;
+    }
+
+    .code-toolbar strong {
+      color: #e6edf3;
+    }
+
+    .copy-btn {
+      border: 1px solid #454c56;
+      border-radius: 7px;
+      padding: 6px 10px;
+      color: #e6edf3;
+      background: #21262d;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .copy-btn:hover {
+      background: #30363d;
+    }
+
+    pre {
+      margin: 0;
+      padding: 17px;
+      overflow: auto;
+      max-height: 560px;
+      color: var(--code-text);
+      background: var(--code-bg);
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        "Liberation Mono",
+        monospace;
+      font-size: 12px;
+      line-height: 1.52;
+      white-space: pre;
+      tab-size: 2;
+    }
+
+    .status {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 9px;
+      font-weight: 650;
+      font-size: 13px;
+    }
+
+    .status.show {
+      display: block;
+    }
+
+    .status-error {
+      color: #ae2a19;
+      background: var(--red-soft);
+      border: 1px solid #fd9891;
+    }
+
+    .status-ok {
+      color: #216e4e;
+      background: var(--green-soft);
+      border: 1px solid #7ee2b8;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .check-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--surface-soft);
+    }
+
+    .check-row input {
+      margin-top: 3px;
+    }
+
+    .footer {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 820px) {
+      .grid,
+      .options {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-flow {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero {
+        padding: 25px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .page {
+        width: min(100% - 18px, 1180px);
+        margin-top: 10px;
+      }
+
+      .card {
+        padding: 17px;
+      }
+
+      .quick-flow {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <section class="hero">
+
+    <div class="hero-badge">
+      GOOGLE WORKSPACE · OFFBOARDING
+    </div>
+
+    <h1>Generator offboardingu użytkownika</h1>
+
+    <p>
+      Narzędzie przygotowuje gotowy skrypt Google Apps Script.
+      Operator podaje konto osoby odchodzącej oraz konto osoby,
+      która przejmuje dane. Skrypt wykonuje bezpieczny DRY RUN,
+      a dopiero po ręcznym przełączeniu może wykonać właściwy offboarding.
+    </p>
+
+    <div class="quick-flow">
+
+      <div class="quick-step">
+        <span>01</span>
+        Walidacja kont
+      </div>
+
+      <div class="quick-step">
+        <span>02</span>
+        Suspend + Sign Out
+      </div>
+
+      <div class="quick-step">
+        <span>03</span>
+        Google MDM
+      </div>
+
+      <div class="quick-step">
+        <span>04</span>
+        Drive + Calendar
+      </div>
+
+      <div class="quick-step">
+        <span>05</span>
+        Alias pocztowy
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <div class="notice notice-warning">
+
+    <strong>⚠️ Ważne — przeczytaj przed użyciem</strong>
+
+    Skrypt nie usuwa konta odchodzącego użytkownika.
+    Zmienia jego adres na archiwalny i pozostawia konto zawieszone.
+    Dzięki temu historyczna zawartość Gmail nie jest kasowana.
+    Nowa poczta wysyłana na stary adres użytkownika trafia do
+    użytkownika przejmującego poprzez alias.
+
+  </div>
+
+
+  <div class="notice notice-info">
+
+    <strong>ℹ️ Google MDM</strong>
+
+    Domyślna akcja to <b>BLOCK</b>.
+    Skrypt nie wykonuje factory resetu telefonu i nie usuwa prywatnych
+    danych użytkownika z urządzenia.
+
+  </div>
+
+
+
+  <!-- ======================================================= -->
+  <!-- SETUP -->
+  <!-- ======================================================= -->
+
+  <section class="card">
+
+    <h2>
+      <span class="section-number">1</span>
+      Konfiguracja jednorazowa
+    </h2>
+
+    <p class="card-subtitle">
+      Ten etap administrator wykonuje tylko przy pierwszym przygotowaniu
+      projektu Apps Script. Przy kolejnych offboardingach wystarczy
+      wygenerować nowy kod z formularza poniżej.
+    </p>
+
+
+    <div class="setup-step">
+
+      <div class="step-circle">1</div>
+
+      <div>
+
+        <h3>Utwórz projekt Google Apps Script</h3>
+
+        <p>
+          Wejdź na
+          <a
+            href="https://script.google.com/"
+            target="_blank"
+            rel="noopener"
+          >
+            script.google.com
+          </a>
+          i wybierz <b>Nowy projekt</b>.
+        </p>
+
+        <p>
+          Zalecana nazwa projektu:
+          <code>Google Workspace Offboarding</code>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="setup-step">
+
+      <div class="step-circle">2</div>
+
+      <div>
+
+        <h3>Włącz widoczność pliku manifestu</h3>
+
+        <p>
+          W Apps Script wejdź w:
+        </p>
+
+        <p>
+          <b>
+            Ustawienia projektu ⚙ →
+            Wyświetlaj plik manifestu „appsscript.json” w edytorze
+          </b>
+        </p>
+
+        <p>
+          Zaznacz checkbox i wróć do edytora.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="setup-step">
+
+      <div class="step-circle">3</div>
+
+      <div>
+
+        <h3>Wklej manifest</h3>
+
+        <p>
+          Otwórz plik <code>appsscript.json</code>,
+          usuń jego zawartość i wklej poniższy manifest.
+        </p>
+
+        <div class="code-card">
+
+          <div class="code-toolbar">
+
+            <strong>appsscript.json</strong>
+
+            <button
+              class="copy-btn"
+              onclick="copyText('manifestCode', this)"
+            >
+              Kopiuj
+            </button>
+
+          </div>
+
+          <pre id="manifestCode"></pre>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="setup-step">
+
+      <div class="step-circle">4</div>
+
+      <div>
+
+        <h3>Sprawdź usługę Admin SDK API</h3>
+
+        <p>
+          Po wklejeniu manifestu w sekcji
+          <b>Usługi</b> projektu powinien pojawić się
+          <code>AdminDirectory</code>.
+        </p>
+
+        <p>
+          Jeżeli używany jest domyślny projekt GCP tworzony przez
+          Apps Script, zwykle nie trzeba robić nic więcej.
+        </p>
+
+        <p>
+          Jeżeli projekt korzysta z własnego projektu Google Cloud,
+          należy w Google Cloud Console włączyć
+          <b>Admin SDK API</b>.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="setup-step">
+
+      <div class="step-circle">5</div>
+
+      <div>
+
+        <h3>Uprawnienia administratora</h3>
+
+        <p>
+          Skrypt uruchamiaj z konta administracyjnego mającego uprawnienia
+          do zarządzania użytkownikami, urządzeniami oraz transferem danych.
+        </p>
+
+        <p>
+          Przy pierwszym uruchomieniu Google poprosi o zaakceptowanie
+          wymaganych zakresów OAuth.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="setup-step">
+
+      <div class="step-circle">6</div>
+
+      <div>
+
+        <h3>Code.gs</h3>
+
+        <p>
+          W pliku <code>Code.gs</code> usuń domyślną funkcję
+          <code>myFunction()</code>.
+        </p>
+
+        <p>
+          Następnie użyj generatora poniżej i wklej wygenerowany kod
+          jako całą zawartość <code>Code.gs</code>.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ======================================================= -->
+  <!-- GENERATOR -->
+  <!-- ======================================================= -->
+
+  <section class="card" id="generator">
+
+    <h2>
+      <span class="section-number">2</span>
+      Generator offboardingu
+    </h2>
+
+    <p class="card-subtitle">
+      Przy każdym nowym zgłoszeniu wystarczy uzupełnić dwa adresy e-mail.
+    </p>
+
+
+    <div class="grid">
+
+      <div class="field">
+
+        <label for="sourceEmail">
+          Konto osoby odchodzącej
+        </label>
+
+        <input
+          id="sourceEmail"
+          type="email"
+          placeholder="np. jan.kowalski@firma.pl"
+          autocomplete="off"
+          oninput="updatePreview()"
+        />
+
+        <div class="field-hint">
+          Konto zostanie zawieszone i przemianowane.
+        </div>
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="targetEmail">
+          Konto osoby przejmującej
+        </label>
+
+        <input
+          id="targetEmail"
+          type="email"
+          placeholder="np. anna.nowak@firma.pl"
+          autocomplete="off"
+          oninput="updatePreview()"
+        />
+
+        <div class="field-hint">
+          To konto otrzyma dane i alias pocztowy.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="field">
+
+      <label for="archivePrefix">
+        Prefix konta archiwalnego
+      </label>
+
+      <input
+        id="archivePrefix"
+        type="text"
+        value="zz.offboard"
+        oninput="updatePreview()"
+      />
+
+      <div class="field-hint">
+        Zalecane pozostawienie wartości domyślnej.
+      </div>
+
+    </div>
+
+
+    <div class="archive-preview">
+
+      <small>Adres konta po offboardingu</small>
+
+      <strong id="archivePreview">
+        —
+      </strong>
+
+    </div>
+
+
+    <h3>Operacje</h3>
+
+    <div class="options">
+
+      <label class="option">
+
+        <input
+          id="optMdm"
+          type="checkbox"
+          checked
+        />
+
+        <span>
+          <strong>Google MDM — BLOCK</strong>
+          <small>
+            Zablokuj urządzenia użytkownika w Google Endpoint Management.
+          </small>
+        </span>
+
+      </label>
+
+
+      <label class="option">
+
+        <input
+          id="optDrive"
+          type="checkbox"
+          checked
+        />
+
+        <span>
+          <strong>Transfer Drive / Docs</strong>
+          <small>
+            PRIVATE + SHARED do użytkownika przejmującego.
+          </small>
+        </span>
+
+      </label>
+
+
+      <label class="option">
+
+        <input
+          id="optCalendar"
+          type="checkbox"
+          checked
+        />
+
+        <span>
+          <strong>Transfer Calendar</strong>
+          <small>
+            Transfer obsługiwanych danych kalendarza.
+          </small>
+        </span>
+
+      </label>
+
+
+      <label class="option">
+
+        <input
+          id="optAlias"
+          type="checkbox"
+          checked
+        />
+
+        <span>
+          <strong>Przekierowanie nowej poczty</strong>
+          <small>
+            Stary adres zostanie aliasem użytkownika przejmującego.
+          </small>
+        </span>
+
+      </label>
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        class="btn btn-primary"
+        onclick="generateScript()"
+      >
+        ⚙ Generuj Code.gs
+      </button>
+
+      <button
+        class="btn btn-secondary"
+        onclick="clearGenerator()"
+      >
+        Wyczyść
+      </button>
+
+    </div>
+
+
+    <div
+      id="generatorStatus"
+      class="status"
+    ></div>
+
+
+    <div
+      id="generatedBlock"
+      class="hidden"
+    >
+
+      <div class="notice notice-success">
+
+        <strong>✓ Kod wygenerowany</strong>
+
+        Skopiuj cały kod poniżej do
+        <b>Code.gs</b>.
+        Wygenerowany skrypt zawsze startuje w trybie
+        <b>DRY RUN</b>.
+
+      </div>
+
+
+      <div class="code-card">
+
+        <div class="code-toolbar">
+
+          <strong>Code.gs</strong>
+
+          <button
+            class="copy-btn"
+            onclick="copyText('generatedCode', this)"
+          >
+            Kopiuj cały skrypt
+          </button>
+
+        </div>
+
+        <pre id="generatedCode"></pre>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ======================================================= -->
+  <!-- RUN PROCEDURE -->
+  <!-- ======================================================= -->
+
+  <section class="card">
+
+    <h2>
+      <span class="section-number">3</span>
+      Uruchomienie offboardingu
+    </h2>
+
+    <div class="setup-step">
+
+      <div class="step-circle">1</div>
+
+      <div>
+
+        <h3>Najpierw DRY RUN</h3>
+
+        <p>
+          Wygenerowany kod zawiera:
+        </p>
+
+        <p>
+          <code>EXECUTE: false</code>
+        </p>
+
+        <p>
+          Nie zmieniaj tej wartości przed pierwszym uruchomieniem.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="setup-step">
+
+      <div class="step-circle">2</div>
+
+      <div>
+
+        <h3>Uruchom funkcję offboarding</h3>
+
+        <p>
+          W górnym menu Apps Script wybierz funkcję
+          <code>offboarding</code>
+          i kliknij <b>Uruchom ▶</b>.
+        </p>
+
+        <p>
+          Pierwsze uruchomienie poprosi o autoryzację.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="setup-step">
+
+      <div class="step-circle">3</div>
+
+      <div>
+
+        <h3>Sprawdź log DRY RUN</h3>
+
+        <p>
+          Należy potwierdzić co najmniej:
+        </p>
+
+        <div class="checklist">
+
+          <label class="check-row">
+            <input type="checkbox" />
+            Konto źródłowe ma prawidłowe imię i nazwisko.
+          </label>
+
+          <label class="check-row">
+            <input type="checkbox" />
+            Konto docelowe jest właściwym użytkownikiem przejmującym.
+          </label>
+
+          <label class="check-row">
+            <input type="checkbox" />
+            Lista urządzeń MDM dotyczy właściwego użytkownika.
+          </label>
+
+          <label class="check-row">
+            <input type="checkbox" />
+            Adres archiwalny jest prawidłowy.
+          </label>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="setup-step">
+
+      <div class="step-circle">4</div>
+
+      <div>
+
+        <h3>Przełącz na LIVE</h3>
+
+        <p>
+          Dopiero po poprawnym DRY RUN zmień:
+        </p>
+
+        <p>
+          <code>EXECUTE: false</code>
+          →
+          <code>EXECUTE: true</code>
+        </p>
+
+        <p>
+          Zapisz projekt i ponownie uruchom
+          <code>offboarding()</code>.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="setup-step">
+
+      <div class="step-circle">5</div>
+
+      <div>
+
+        <h3>Nie uruchamiaj całego procesu ponownie po błędzie aliasu</h3>
+
+        <p>
+          Jeżeli proces zakończy się błędem na etapie aliasu
+          lub Google będzie jeszcze propagował zmianę adresu,
+          uruchom tylko:
+        </p>
+
+        <p>
+          <code>claimOldEmailOnly()</code>
+        </p>
+
+        <p>
+          Nowa wersja skryptu dodatkowo sprawdza stan kont
+          i blokuje przypadkowe ponowne wykonanie całego offboardingu,
+          jeżeli użytkownik został już przemianowany.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ======================================================= -->
+  <!-- RESULT -->
+  <!-- ======================================================= -->
+
+  <section class="card">
+
+    <h2>
+      <span class="section-number">4</span>
+      Oczekiwany rezultat
+    </h2>
+
+    <div class="notice notice-success">
+
+      <strong>Po prawidłowym zakończeniu:</strong>
+
+      konto odchodzącego użytkownika jest zawieszone,
+      sesje są wylogowane, urządzenia Google MDM są zablokowane,
+      Drive/Docs i obsługiwane dane Calendar są przekazywane,
+      a stary adres e-mail może działać jako alias użytkownika
+      przejmującego.
+
+    </div>
+
+    <div class="notice notice-warning">
+
+      <strong>Historyczny Gmail</strong>
+
+      Historyczne wiadomości Gmail nie są przenoszone przez ten skrypt
+      do skrzynki użytkownika przejmującego.
+      Pozostają na zawieszonym koncie archiwalnym.
+      Alias obsługuje wyłącznie nową pocztę kierowaną na stary adres.
+
+    </div>
+
+  </section>
+
+
+
+  <div class="footer">
+    Google Workspace Offboarding · instrukcja wewnętrzna
+  </div>
+
+</div>
+
+
+
+<script>
+
+  /* =========================================================
+     MANIFEST
+     ========================================================= */
+
+  const MANIFEST = `{
+  "timeZone": "Europe/Warsaw",
+  "dependencies": {
+    "enabledAdvancedServices": [
+      {
+        "userSymbol": "AdminDirectory",
+        "version": "directory_v1",
+        "serviceId": "admin"
+      }
+    ]
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/admin.directory.user",
+    "https://www.googleapis.com/auth/admin.directory.user.security",
+    "https://www.googleapis.com/auth/admin.directory.device.mobile.action",
+    "https://www.googleapis.com/auth/admin.directory.group.readonly",
+    "https://www.googleapis.com/auth/admin.datatransfer",
+    "https://www.googleapis.com/auth/script.external_request"
+  ]
+}`;
+
+  document.getElementById("manifestCode").textContent = MANIFEST;
+
+
+
+  /* =========================================================
+     HELPERS
+     ========================================================= */
+
+  function escapeSingleQuotes(value) {
+
+    return String(value)
+      .replace(/\\\\/g, "\\\\\\\\")
+      .replace(/'/g, "\\\\'");
+
+  }
+
+
+  function normalizeEmail(value) {
+
+    return String(value || "")
+      .trim()
+      .toLowerCase();
+
+  }
+
+
+  function isEmail(value) {
+
+    return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(value);
+
+  }
+
+
+  function todayStamp() {
+
+    const d = new Date();
+
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+
+    return yyyy + mm + dd;
+
+  }
+
+
+  function sanitizeLocalPart(value) {
+
+    return String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9._-]/g, "")
+      .replace(/\\.+/g, ".")
+      .replace(/^\\.|\\.$/g, "");
+
+  }
+
+
+  function getArchiveEmail() {
+
+    const source =
+      normalizeEmail(
+        document.getElementById("sourceEmail").value
+      );
+
+    const prefix =
+      sanitizeLocalPart(
+        document.getElementById("archivePrefix").value
+      ) || "zz.offboard";
+
+    if (!isEmail(source)) {
+      return "";
+    }
+
+    const parts = source.split("@");
+
+    const local = sanitizeLocalPart(parts[0]);
+    const domain = parts[1];
+
+    return (
+      prefix +
+      "." +
+      local +
+      "." +
+      todayStamp() +
+      "@" +
+      domain
+    );
+
+  }
+
+
+  function updatePreview() {
+
+    const archive = getArchiveEmail();
+
+    document.getElementById("archivePreview").textContent =
+      archive || "—";
+
+  }
+
+
+  function setStatus(message, type) {
+
+    const el =
+      document.getElementById("generatorStatus");
+
+    el.textContent = message;
+
+    el.className =
+      "status show " +
+      (
+        type === "ok"
+          ? "status-ok"
+          : "status-error"
+      );
+
+  }
+
+
+  function clearStatus() {
+
+    const el =
+      document.getElementById("generatorStatus");
+
+    el.className = "status";
+    el.textContent = "";
+
+  }
+
+
+  async function copyText(id, button) {
+
+    const element =
+      document.getElementById(id);
+
+    const text =
+      element.textContent;
+
+    try {
+
+      await navigator.clipboard.writeText(text);
+
+    } catch (e) {
+
+      const textarea =
+        document.createElement("textarea");
+
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+
+      document.body.appendChild(textarea);
+
+      textarea.select();
+
+      document.execCommand("copy");
+
+      textarea.remove();
+
+    }
+
+    if (button) {
+
+      const old =
+        button.textContent;
+
+      button.textContent = "✓ Skopiowano";
+
+      setTimeout(
+        function() {
+          button.textContent = old;
+        },
+        1600
+      );
+
+    }
+
+  }
+
+
+
+  /* =========================================================
+     GENERATOR
+     ========================================================= */
+
+  function generateScript() {
+
+    clearStatus();
+
+    const source =
+      normalizeEmail(
+        document.getElementById("sourceEmail").value
+      );
+
+    const target =
+      normalizeEmail(
+        document.getElementById("targetEmail").value
+      );
+
+    const archive =
+      getArchiveEmail();
+
+    const mdm =
+      document.getElementById("optMdm").checked;
+
+    const drive =
+      document.getElementById("optDrive").checked;
+
+    const calendar =
+      document.getElementById("optCalendar").checked;
+
+    const alias =
+      document.getElementById("optAlias").checked;
+
+
+    if (!isEmail(source)) {
+
+      setStatus(
+        "Podaj prawidłowy adres konta osoby odchodzącej.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    if (!isEmail(target)) {
+
+      setStatus(
+        "Podaj prawidłowy adres konta osoby przejmującej.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    if (source === target) {
+
+      setStatus(
+        "Konto źródłowe i docelowe nie mogą być takie same.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    if (!archive) {
+
+      setStatus(
+        "Nie udało się wygenerować adresu archiwalnego.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    const code =
+      buildAppsScript({
+        source,
+        target,
+        archive,
+        mdm,
+        drive,
+        calendar,
+        alias
+      });
+
+
+    document.getElementById("generatedCode").textContent =
+      code;
+
+    document.getElementById("generatedBlock").classList.remove(
+      "hidden"
+    );
+
+    setStatus(
+      "Gotowe. Skrypt został wygenerowany w trybie DRY RUN.",
+      "ok"
+    );
+
+    document.getElementById("generatedBlock").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+  }
+
+
+
+  function clearGenerator() {
+
+    document.getElementById("sourceEmail").value = "";
+    document.getElementById("targetEmail").value = "";
+
+    document.getElementById("archivePrefix").value =
+      "zz.offboard";
+
+    document.getElementById("optMdm").checked = true;
+    document.getElementById("optDrive").checked = true;
+    document.getElementById("optCalendar").checked = true;
+    document.getElementById("optAlias").checked = true;
+
+    document.getElementById("generatedBlock").classList.add(
+      "hidden"
+    );
+
+    document.getElementById("generatedCode").textContent = "";
+
+    clearStatus();
+    updatePreview();
+
+  }
+
+
+
+  /* =========================================================
+     GOOGLE APPS SCRIPT TEMPLATE
+     ========================================================= */
+
+  function buildAppsScript(cfg) {
+
+    const SOURCE =
+      escapeSingleQuotes(cfg.source);
+
+    const TARGET =
+      escapeSingleQuotes(cfg.target);
+
+    const ARCHIVE =
+      escapeSingleQuotes(cfg.archive);
+
+
+    return `/**
+ * ============================================================
+ * GOOGLE WORKSPACE OFFBOARDING
+ * ============================================================
+ *
+ * SOURCE:
+ * ${SOURCE}
+ *
+ * TARGET:
+ * ${TARGET}
+ *
+ * Wygenerowano automatycznie.
+ *
+ * WAŻNE:
+ * Pierwsze uruchomienie zawsze wykonuj z EXECUTE = false.
+ * ============================================================
+ */
+
+const CFG = {
+
+  SOURCE: '${SOURCE}',
+
+  TARGET: '${TARGET}',
+
+  ARCHIVE_EMAIL: '${ARCHIVE}',
+
+  // ----------------------------------------------------------
+  // FALSE = tylko podgląd.
+  // TRUE  = rzeczywiste wykonanie.
+  // ----------------------------------------------------------
+
+  EXECUTE: false,
+
+  BLOCK_GOOGLE_MDM: ${cfg.mdm},
+
+  TRANSFER_DRIVE: ${cfg.drive},
+
+  TRANSFER_CALENDAR: ${cfg.calendar},
+
+  ASSIGN_OLD_ADDRESS_TO_TARGET: ${cfg.alias},
+
+  CUSTOMER_ID: 'my_customer'
+
+};
+
+
+
+/**
+ * ============================================================
+ * GŁÓWNA FUNKCJA
+ * ============================================================
+ *
+ * URUCHAMIAJ:
+ *
+ * offboarding()
+ *
+ */
+function offboarding() {
+
+  log('');
+  log('======================================================');
+  log(' GOOGLE WORKSPACE OFFBOARDING');
+  log('======================================================');
+
+  log('SOURCE : ' + CFG.SOURCE);
+  log('TARGET : ' + CFG.TARGET);
+  log('ARCHIVE: ' + CFG.ARCHIVE_EMAIL);
+
+  log(
+    'MODE   : ' +
+    (
+      CFG.EXECUTE
+        ? '!!! LIVE !!!'
+        : 'PREVIEW / DRY RUN'
+    )
+  );
+
+  log('======================================================');
+  log('');
+
+
+  // ----------------------------------------------------------
+  // TARGET
+  // ----------------------------------------------------------
+
+  const target =
+    safeGetUser(CFG.TARGET);
+
+  if (!target) {
+
+    throw new Error(
+      'Nie znaleziono użytkownika docelowego: ' +
+      CFG.TARGET
+    );
+
+  }
+
+
+  // ----------------------------------------------------------
+  // SOURCE / OCHRONA PRZED PONOWNYM OFFBOARDINGIEM
+  // ----------------------------------------------------------
+
+  const source =
+    safeGetUser(CFG.SOURCE);
+
+
+  if (source && source.id === target.id) {
+
+    log('');
+    log('======================================================');
+    log(' OFFBOARDING WYGLĄDA NA JUŻ ZAKOŃCZONY');
+    log('======================================================');
+    log('');
+    log(
+      CFG.SOURCE +
+      ' wskazuje już na konto docelowe:'
+    );
+    log(target.primaryEmail);
+    log('');
+    log('Nie wykonano żadnych zmian.');
+
+    return;
+
+  }
+
+
+  if (
+    source &&
+    normalize(source.primaryEmail) !== normalize(CFG.SOURCE)
+  ) {
+
+    log('');
+    log('======================================================');
+    log(' WYKRYTO CZĘŚCIOWO WYKONANY OFFBOARDING');
+    log('======================================================');
+
+    log('');
+    log(
+      'Adres ' +
+      CFG.SOURCE +
+      ' jest aliasem użytkownika:'
+    );
+
+    log(source.primaryEmail);
+
+    log('');
+    log(
+      'Nie uruchamiam ponownie całego procesu.'
+    );
+
+    log(
+      'Jeżeli trzeba dokończyć alias, uruchom:'
+    );
+
+    log('claimOldEmailOnly()');
+
+    return;
+
+  }
+
+
+  if (!source) {
+
+    const archived =
+      safeGetUser(CFG.ARCHIVE_EMAIL);
+
+
+    if (archived) {
+
+      log('');
+      log('======================================================');
+      log(' KONTO ZOSTAŁO JUŻ PRZEMIANOWANE');
+      log('======================================================');
+
+      log('');
+      log(
+        'Znaleziono konto archiwalne: ' +
+        archived.primaryEmail
+      );
+
+      log('');
+      log(
+        'Nie wykonuję ponownie pełnego offboardingu.'
+      );
+
+      log(
+        'W razie potrzeby uruchom:'
+      );
+
+      log('claimOldEmailOnly()');
+
+      return;
+
+    }
+
+
+    throw new Error(
+      'Nie znaleziono użytkownika źródłowego: ' +
+      CFG.SOURCE
+    );
+
+  }
+
+
+  if (source.id === target.id) {
+
+    throw new Error(
+      'SOURCE i TARGET wskazują na to samo konto.'
+    );
+
+  }
+
+
+  if (source.isAdmin) {
+
+    throw new Error(
+      'STOP: konto źródłowe posiada uprawnienia administratora. ' +
+      'Proces należy zweryfikować ręcznie.'
+    );
+
+  }
+
+
+  const archiveExisting =
+    safeGetUser(CFG.ARCHIVE_EMAIL);
+
+
+  if (
+    archiveExisting &&
+    archiveExisting.id !== source.id
+  ) {
+
+    throw new Error(
+      'Adres archiwalny jest już zajęty: ' +
+      CFG.ARCHIVE_EMAIL
+    );
+
+  }
+
+
+  log('✓ SOURCE znaleziony:');
+  log('  ' + source.name.fullName);
+  log('  ' + source.primaryEmail);
+  log('  ID: ' + source.id);
+  log('');
+
+  log('✓ TARGET znaleziony:');
+  log('  ' + target.name.fullName);
+  log('  ' + target.primaryEmail);
+  log('  ID: ' + target.id);
+  log('');
+
+
+  if (target.suspended) {
+
+    throw new Error(
+      'STOP: konto docelowe jest zawieszone: ' +
+      CFG.TARGET
+    );
+
+  }
+
+
+
+  // ----------------------------------------------------------
+  // GOOGLE MDM
+  // ----------------------------------------------------------
+
+  const devices =
+    getUserMobileDevices(CFG.SOURCE);
+
+
+  log('Google MDM / Endpoint Management:');
+  log('Znalezionych urządzeń: ' + devices.length);
+
+
+  devices.forEach(
+    function(device, index) {
+
+      log(
+        '  [' +
+        (index + 1) +
+        '] ' +
+        (device.model || 'nieznany model') +
+        ' | ' +
+        (device.os || 'nieznany OS') +
+        ' | status: ' +
+        (device.status || '?') +
+        ' | resourceId: ' +
+        device.resourceId
+      );
+
+    }
+  );
+
+
+  log('');
+
+
+
+  // ----------------------------------------------------------
+  // DRY RUN
+  // ----------------------------------------------------------
+
+  if (!CFG.EXECUTE) {
+
+    log('======================================================');
+    log(' DRY RUN - NIC NIE ZOSTAŁO ZMIENIONE');
+    log('======================================================');
+
+    log('');
+    log('Po ustawieniu EXECUTE = true skrypt wykona:');
+    log('');
+
+    log('1. Suspend konta źródłowego');
+    log('2. Wylogowanie aktywnych sesji');
+
+    if (CFG.BLOCK_GOOGLE_MDM) {
+      log('3. Blokadę urządzeń Google MDM');
+    }
+
+    if (CFG.TRANSFER_DRIVE) {
+      log('4. Transfer Drive / Docs');
+    }
+
+    if (CFG.TRANSFER_CALENDAR) {
+      log('5. Transfer obsługiwanych danych Calendar');
+    }
+
+    log(
+      '6. Zmianę adresu użytkownika na: ' +
+      CFG.ARCHIVE_EMAIL
+    );
+
+
+    if (CFG.ASSIGN_OLD_ADDRESS_TO_TARGET) {
+
+      log(
+        '7. Przeniesienie adresu ' +
+        CFG.SOURCE +
+        ' jako alias do ' +
+        CFG.TARGET
+      );
+
+    }
+
+
+    log('');
+    log('Jeżeli wszystko się zgadza:');
+    log('');
+    log('EXECUTE: false');
+    log('zmień na');
+    log('EXECUTE: true');
+    log('');
+    log('i uruchom offboarding() ponownie.');
+
+    return;
+
+  }
+
+
+
+  // ----------------------------------------------------------
+  // SUSPEND
+  // ----------------------------------------------------------
+
+  log('');
+  log('--- SUSPEND KONTA ---');
+
+
+  if (!source.suspended) {
+
+    AdminDirectory.Users.update(
+      {
+        suspended: true
+      },
+      source.id
+    );
+
+    log('✓ Konto zostało zawieszone.');
+
+  } else {
+
+    log('✓ Konto było już zawieszone.');
+
+  }
+
+
+
+  // ----------------------------------------------------------
+  // SIGN OUT
+  // ----------------------------------------------------------
+
+  log('');
+  log('--- WYLOGOWANIE SESJI ---');
+
+
+  try {
+
+    AdminDirectory.Users.signOut(
+      source.id
+    );
+
+    log(
+      '✓ Wysłano polecenie wylogowania wszystkich sesji.'
+    );
+
+  } catch (e) {
+
+    log(
+      '⚠ Nie udało się wylogować sesji: ' +
+      String(e)
+    );
+
+  }
+
+
+
+  // ----------------------------------------------------------
+  // GOOGLE MDM
+  // ----------------------------------------------------------
+
+  if (CFG.BLOCK_GOOGLE_MDM) {
+
+    log('');
+    log('--- GOOGLE MDM ---');
+
+
+    if (devices.length === 0) {
+
+      log('✓ Brak urządzeń do zablokowania.');
+
+    } else {
+
+      devices.forEach(
+        function(device) {
+
+          try {
+
+            AdminDirectory.Mobiledevices.action(
+              {
+                action: 'block'
+              },
+              CFG.CUSTOMER_ID,
+              device.resourceId
+            );
+
+            log(
+              '✓ Zablokowano: ' +
+              (
+                device.model ||
+                device.resourceId
+              )
+            );
+
+          } catch (e) {
+
+            log(
+              '⚠ Błąd blokowania urządzenia ' +
+              device.resourceId +
+              ': ' +
+              String(e)
+            );
+
+          }
+
+        }
+      );
+
+    }
+
+  }
+
+
+
+  // ----------------------------------------------------------
+  // DATA TRANSFER
+  // ----------------------------------------------------------
+
+  log('');
+  log('--- TRANSFER DANYCH ---');
+
+
+  const transferResult =
+    startDataTransfer(
+      source.id,
+      target.id
+    );
+
+
+  if (transferResult) {
+
+    log('✓ Zlecono transfer danych.');
+
+    if (transferResult.id) {
+
+      log(
+        '  Transfer ID: ' +
+        transferResult.id
+      );
+
+    }
+
+    if (
+      transferResult.overallTransferStatusCode
+    ) {
+
+      log(
+        '  Status: ' +
+        transferResult.overallTransferStatusCode
+      );
+
+    }
+
+  } else {
+
+    log(
+      'Transfer Drive/Calendar wyłączony w konfiguracji.'
+    );
+
+  }
+
+
+
+  // ----------------------------------------------------------
+  // RENAME
+  // ----------------------------------------------------------
+
+  log('');
+  log('--- ARCHIWIZACJA LOGINU ---');
+
+
+  AdminDirectory.Users.update(
+    {
+      primaryEmail:
+        CFG.ARCHIVE_EMAIL
+    },
+    source.id
+  );
+
+
+  log(
+    '✓ Konto zostało przemianowane na: ' +
+    CFG.ARCHIVE_EMAIL
+  );
+
+
+  Utilities.sleep(5000);
+
+
+
+  // ----------------------------------------------------------
+  // ALIAS
+  // ----------------------------------------------------------
+
+  if (CFG.ASSIGN_OLD_ADDRESS_TO_TARGET) {
+
+    log('');
+    log('--- PRZEKIEROWANIE POCZTY ---');
+
+
+    removeAliasFromUserIfPresent(
+      source.id,
+      CFG.SOURCE
+    );
+
+
+    addAliasWithRetry(
+      source.id,
+      target.id,
+      CFG.SOURCE
+    );
+
+  }
+
+
+
+  // ----------------------------------------------------------
+  // FINAL VERIFY
+  // ----------------------------------------------------------
+
+  log('');
+  log('--- WERYFIKACJA ---');
+
+
+  const archivedUser =
+    safeGetUser(
+      CFG.ARCHIVE_EMAIL
+    );
+
+
+  const finalTarget =
+    safeGetUser(
+      CFG.TARGET
+    );
+
+
+  if (!archivedUser) {
+
+    throw new Error(
+      'Nie znaleziono konta archiwalnego podczas weryfikacji.'
+    );
+
+  }
+
+
+  log('');
+  log('Konto archiwalne:');
+  log(
+    '  ' +
+    archivedUser.primaryEmail
+  );
+  log(
+    '  suspended: ' +
+    archivedUser.suspended
+  );
+
+
+  log('');
+  log('Konto przejmujące:');
+  log(
+    '  ' +
+    finalTarget.primaryEmail
+  );
+
+
+  const targetAliases =
+    AdminDirectory.Users.Aliases.list(
+      finalTarget.id
+    );
+
+
+  const aliases =
+    targetAliases.aliases || [];
+
+
+  log('  Aliasy:');
+
+
+  if (aliases.length === 0) {
+
+    log('    brak');
+
+  } else {
+
+    aliases.forEach(
+      function(alias) {
+
+        log(
+          '    ' +
+          alias.alias
+        );
+
+      }
+    );
+
+  }
+
+
+  log('');
+  log('======================================================');
+  log(' OFFBOARDING ZAKOŃCZONY');
+  log('======================================================');
+
+  log('');
+  log('Konto archiwalne:');
+  log('  ' + CFG.ARCHIVE_EMAIL);
+
+  log('');
+  log('Konto przejmujące:');
+  log('  ' + CFG.TARGET);
+
+
+  if (
+    CFG.ASSIGN_OLD_ADDRESS_TO_TARGET
+  ) {
+
+    log('');
+    log('Nowa poczta na:');
+    log('  ' + CFG.SOURCE);
+
+    log('trafia do:');
+    log('  ' + CFG.TARGET);
+
+  }
+
+}
+
+
+
+/**
+ * ============================================================
+ * DOKOŃCZENIE SAMEGO ALIASU
+ * ============================================================
+ *
+ * Użyj tylko wtedy, gdy pełny offboarding wykonał rename,
+ * ale Google nie zdążył jeszcze zwolnić starego adresu.
+ */
+function claimOldEmailOnly() {
+
+  log('');
+  log('======================================================');
+  log(' CLAIM OLD EMAIL ONLY');
+  log('======================================================');
+
+
+  const target =
+    safeGetUser(CFG.TARGET);
+
+
+  const archived =
+    safeGetUser(
+      CFG.ARCHIVE_EMAIL
+    );
+
+
+  if (!target) {
+
+    throw new Error(
+      'Nie znaleziono TARGET: ' +
+      CFG.TARGET
+    );
+
+  }
+
+
+  if (!archived) {
+
+    throw new Error(
+      'Nie znaleziono konta archiwalnego: ' +
+      CFG.ARCHIVE_EMAIL
+    );
+
+  }
+
+
+  const owner =
+    findAddressOwner(
+      CFG.SOURCE
+    );
+
+
+  if (
+    owner &&
+    owner.type === 'USER' &&
+    owner.id === target.id
+  ) {
+
+    log(
+      '✓ Alias jest już przypisany do użytkownika docelowego.'
+    );
+
+    return;
+
+  }
+
+
+  removeAliasFromUserIfPresent(
+    archived.id,
+    CFG.SOURCE
+  );
+
+
+  addAliasWithRetry(
+    archived.id,
+    target.id,
+    CFG.SOURCE
+  );
+
+
+  log('');
+  log('✓ Alias został poprawnie przypisany.');
+
+}
+
+
+
+/**
+ * ============================================================
+ * DIAGNOSTYKA ADRESU
+ * ============================================================
+ *
+ * Pokazuje, czy adres jest obecnie użytkownikiem,
+ * aliasem użytkownika lub grupą.
+ */
+function diagnoseOldAddress() {
+
+  log('');
+  log('======================================================');
+  log(' DIAGNOSTYKA ADRESU');
+  log('======================================================');
+
+  log(
+    'Adres: ' +
+    CFG.SOURCE
+  );
+
+
+  const owner =
+    findAddressOwner(
+      CFG.SOURCE
+    );
+
+
+  if (!owner) {
+
+    log('');
+    log(
+      'Adres jest obecnie wolny / nie został znaleziony.'
+    );
+
+    return;
+
+  }
+
+
+  log('');
+  log(
+    'Typ: ' +
+    owner.type
+  );
+
+
+  if (owner.type === 'USER') {
+
+    log(
+      'Primary email: ' +
+      owner.email
+    );
+
+    log(
+      'User ID: ' +
+      owner.id
+    );
+
+  }
+
+
+  if (owner.type === 'GROUP') {
+
+    log(
+      'Group email: ' +
+      owner.email
+    );
+
+    log(
+      'Group ID: ' +
+      owner.id
+    );
+
+  }
+
+}
+
+
+
+/**
+ * ============================================================
+ * USER HELPERS
+ * ============================================================
+ */
+function safeGetUser(userKey) {
+
+  try {
+
+    return AdminDirectory.Users.get(
+      userKey
+    );
+
+  } catch (e) {
+
+    return null;
+
+  }
+
+}
+
+
+
+function normalize(value) {
+
+  return String(value || '')
+    .trim()
+    .toLowerCase();
+
+}
+
+
+
+/**
+ * ============================================================
+ * GOOGLE MDM
+ * ============================================================
+ */
+function getUserMobileDevices(email) {
+
+  const result = [];
+
+  let pageToken = null;
+
+
+  do {
+
+    const params = {
+
+      query:
+        'email:' +
+        email,
+
+      projection:
+        'FULL',
+
+      maxResults:
+        100
+
+    };
+
+
+    if (pageToken) {
+
+      params.pageToken =
+        pageToken;
+
+    }
+
+
+    const response =
+      AdminDirectory.Mobiledevices.list(
+        CFG.CUSTOMER_ID,
+        params
+      );
+
+
+    const devices =
+      response.mobiledevices || [];
+
+
+    devices.forEach(
+      function(device) {
+
+        const rawEmails =
+          device.email || [];
+
+
+        const emails =
+          Array.isArray(rawEmails)
+            ? rawEmails
+            : [rawEmails];
+
+
+        const normalizedEmails =
+          emails.map(
+            function(item) {
+
+              return normalize(item);
+
+            }
+          );
+
+
+        if (
+          normalizedEmails.indexOf(
+            normalize(email)
+          ) !== -1
+        ) {
+
+          result.push(
+            device
+          );
+
+        }
+
+      }
+    );
+
+
+    pageToken =
+      response.nextPageToken || null;
+
+
+  } while (pageToken);
+
+
+  return result;
+
+}
+
+
+
+/**
+ * ============================================================
+ * DATA TRANSFER
+ * ============================================================
+ *
+ * Google Drive / Docs:
+ * Application ID: 55656082996
+ *
+ * Calendar:
+ * Application ID: 435070579839
+ */
+function startDataTransfer(
+  sourceUserId,
+  targetUserId
+) {
+
+  const applications = [];
+
+
+  if (CFG.TRANSFER_DRIVE) {
+
+    applications.push({
+
+      applicationId:
+        '55656082996',
+
+      applicationTransferParams: [
+        {
+          key:
+            'PRIVACY_LEVEL',
+
+          value: [
+            'PRIVATE',
+            'SHARED'
+          ]
+        }
+      ]
+
+    });
+
+  }
+
+
+  if (CFG.TRANSFER_CALENDAR) {
+
+    applications.push({
+
+      applicationId:
+        '435070579839',
+
+      applicationTransferParams: [
+        {
+          key:
+            'RELEASE_RESOURCES',
+
+          value: [
+            'TRUE'
+          ]
+        }
+      ]
+
+    });
+
+  }
+
+
+  if (
+    applications.length === 0
+  ) {
+
+    return null;
+
+  }
+
+
+  const payload = {
+
+    oldOwnerUserId:
+      sourceUserId,
+
+    newOwnerUserId:
+      targetUserId,
+
+    applicationDataTransfers:
+      applications
+
+  };
+
+
+  const response =
+    UrlFetchApp.fetch(
+      'https://admin.googleapis.com/admin/datatransfer/v1/transfers',
+      {
+
+        method:
+          'post',
+
+        contentType:
+          'application/json',
+
+        headers: {
+
+          Authorization:
+            'Bearer ' +
+            ScriptApp.getOAuthToken()
+
+        },
+
+        payload:
+          JSON.stringify(
+            payload
+          ),
+
+        muteHttpExceptions:
+          true
+
+      }
+    );
+
+
+  const code =
+    response.getResponseCode();
+
+
+  const body =
+    response.getContentText();
+
+
+  if (
+    code < 200 ||
+    code >= 300
+  ) {
+
+    throw new Error(
+      'Data Transfer API zwróciło HTTP ' +
+      code +
+      '\\n' +
+      body
+    );
+
+  }
+
+
+  return JSON.parse(
+    body
+  );
+
+}
+
+
+
+/**
+ * ============================================================
+ * ADDRESS / ALIAS HELPERS
+ * ============================================================
+ */
+function findAddressOwner(address) {
+
+  try {
+
+    const user =
+      AdminDirectory.Users.get(
+        address
+      );
+
+
+    if (user) {
+
+      return {
+
+        type:
+          'USER',
+
+        id:
+          user.id,
+
+        email:
+          user.primaryEmail
+
+      };
+
+    }
+
+  } catch (e) {
+
+    // Nie znaleziono jako użytkownik.
+
+  }
+
+
+  try {
+
+    const group =
+      AdminDirectory.Groups.get(
+        address
+      );
+
+
+    if (group) {
+
+      return {
+
+        type:
+          'GROUP',
+
+        id:
+          group.id,
+
+        email:
+          group.email
+
+      };
+
+    }
+
+  } catch (e) {
+
+    // Nie znaleziono jako grupa.
+
+  }
+
+
+  return null;
+
+}
+
+
+
+function removeAliasFromUserIfPresent(
+  userId,
+  alias
+) {
+
+  const response =
+    AdminDirectory.Users.Aliases.list(
+      userId
+    );
+
+
+  const aliases =
+    response.aliases || [];
+
+
+  const exists =
+    aliases.some(
+      function(item) {
+
+        return (
+          normalize(item.alias) ===
+          normalize(alias)
+        );
+
+      }
+    );
+
+
+  if (!exists) {
+
+    log(
+      'Alias nie znajduje się już na koncie archiwalnym: ' +
+      alias
+    );
+
+    return false;
+
+  }
+
+
+  AdminDirectory.Users.Aliases.remove(
+    userId,
+    alias
+  );
+
+
+  log(
+    '✓ Usunięto stary alias z konta archiwalnego: ' +
+    alias
+  );
+
+
+  Utilities.sleep(
+    10000
+  );
+
+
+  return true;
+
+}
+
+
+
+/**
+ * Próbuje przypisać alias.
+ *
+ * Obsługuje również sytuację:
+ * Entity already exists
+ *
+ * Google może potrzebować czasu na propagację
+ * usunięcia poprzedniego aliasu.
+ */
+function addAliasWithRetry(
+  archivedUserId,
+  targetUserId,
+  alias
+) {
+
+  const maxAttempts =
+    18;
+
+
+  for (
+    let attempt = 1;
+    attempt <= maxAttempts;
+    attempt++
+  ) {
+
+    const owner =
+      findAddressOwner(
+        alias
+      );
+
+
+    // Alias już poprawnie wskazuje TARGET.
+    if (
+      owner &&
+      owner.type === 'USER' &&
+      owner.id === targetUserId
+    ) {
+
+      log(
+        '✓ Alias jest już przypisany do konta docelowego.'
+      );
+
+      return;
+
+    }
+
+
+    // Nadal wskazuje stare konto.
+    if (
+      owner &&
+      owner.type === 'USER' &&
+      owner.id === archivedUserId
+    ) {
+
+      log(
+        'Próba ' +
+        attempt +
+        '/' +
+        maxAttempts +
+        ': Google nadal widzi adres przy koncie archiwalnym.'
+      );
+
+
+      try {
+
+        removeAliasFromUserIfPresent(
+          archivedUserId,
+          alias
+        );
+
+      } catch (e) {
+
+        log(
+          'Oczekiwanie na propagację usunięcia aliasu...'
+        );
+
+      }
+
+
+      Utilities.sleep(
+        10000
+      );
+
+
+      continue;
+
+    }
+
+
+    // Konflikt z innym użytkownikiem.
+    if (
+      owner &&
+      owner.type === 'USER'
+    ) {
+
+      throw new Error(
+        'Adres ' +
+        alias +
+        ' jest używany przez innego użytkownika: ' +
+        owner.email
+      );
+
+    }
+
+
+    // Konflikt z grupą.
+    if (
+      owner &&
+      owner.type === 'GROUP'
+    ) {
+
+      throw new Error(
+        'Adres ' +
+        alias +
+        ' jest używany przez Google Group: ' +
+        owner.email
+      );
+
+    }
+
+
+    try {
+
+      AdminDirectory.Users.Aliases.insert(
+        {
+          alias:
+            alias
+        },
+        targetUserId
+      );
+
+
+      log(
+        '✓ Adres ' +
+        alias +
+        ' został przypisany do konta docelowego.'
+      );
+
+
+      return;
+
+    } catch (e) {
+
+      log(
+        'Próba ' +
+        attempt +
+        '/' +
+        maxAttempts +
+        ': alias jeszcze niedostępny.'
+      );
+
+
+      log(
+        String(e)
+      );
+
+
+      if (
+        attempt === maxAttempts
+      ) {
+
+        throw new Error(
+          'Nie udało się przypisać aliasu po ' +
+          maxAttempts +
+          ' próbach.\\n\\n' +
+          'Pozostałe operacje offboardingu mogły zostać już wykonane.\\n' +
+          'NIE uruchamiaj całego offboardingu ponownie.\\n\\n' +
+          'Uruchom później tylko funkcję:\\n' +
+          'claimOldEmailOnly()\\n\\n' +
+          String(e)
+        );
+
+      }
+
+
+      Utilities.sleep(
+        10000
+      );
+
+    }
+
+  }
+
+}
+
+
+
+/**
+ * ============================================================
+ * LOG
+ * ============================================================
+ */
+function log(message) {
+
+  console.log(
+    message
+  );
+
+}
+`;
+
+  }
+
+
+
+  updatePreview();
+
+</script>
+
+</body>
+</html>
